@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>名前のない言葉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg2: #f7f6f3; --bg3: #f0ede8;
+    --text: #1a1a1a; --text2: #666; --text3: #999;
+    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.22);
+    --accent: #1a1a1a;
+    --radius: 12px; --radius-sm: 8px;
+    --danger-bg: #fdecea; --danger: #c0392b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a; --bg2: #242424; --bg3: #2e2e2e;
+      --text: #f0ede8; --text2: #aaa; --text3: #666;
+      --border: rgba(255,255,255,0.12); --border2: rgba(255,255,255,0.25);
+      --accent: #f0ede8;
+      --danger-bg: #3a1a1a; --danger: #e07070;
+    }
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Zen Kaku Gothic New', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+  #app { padding: 2rem 1rem 4rem; max-width: 600px; margin: 0 auto; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Header ── */
+  .header { text-align: center; margin-bottom: 2.5rem; }
+  .header h1 { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 26px; letter-spacing: 0.15em; margin-bottom: 0.4rem; }
+  .header p { font-size: 13px; color: var(--text2); letter-spacing: 0.05em; }
+
+  /* ── Card ── */
+  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; }
+  .step-label { font-size: 11px; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 0.75rem; text-transform: uppercase; }
+  .question-text { font-size: 17px; font-weight: 500; line-height: 1.6; margin-bottom: 1.25rem; }
+  .hint { font-size: 12px; color: var(--text3); margin-bottom: 0.5rem; }
+
+  /* ── Inputs ── */
+  .input-area {
+    width: 100%; border: 0.5px solid var(--border2); border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem; font-size: 15px; font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg); color: var(--text); resize: none; outline: none; line-height: 1.7;
+    -webkit-appearance: none;
+  }
+  .input-area:focus { border-color: var(--accent); }
+
+  /* ── Tag buttons ── */
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tag-btn {
+    padding: 6px 14px; font-size: 13px; background: var(--bg2);
+    border: 0.5px solid var(--border); border-radius: 20px;
+    font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text); cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tag-btn.selected { border-color: var(--accent); background: var(--bg); font-weight: 500; }
+
+  /* ── First impression grid ── */
+  .fi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
+  .fi-btn {
+    background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius);
+    padding: 1rem 0.75rem; font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text);
+    cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent;
+  }
+  .fi-btn .fi-emoji { font-size: 22px; display: block; margin-bottom: 5px; }
+  .fi-btn .fi-label { font-size: 14px; font-weight: 500; display: block; }
+  .fi-btn .fi-sub { font-size: 11px; color: var(--text2); display: block; margin-top: 3px; line-height: 1.4; }
+  .fi-btn.selected { border-color: var(--accent); background: var(--bg); }
+
+  /* ── Choices ── */
+  .choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 1rem; }
+  .choice-btn {
+    background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 0.8rem 1rem; font-size: 14px; font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--text); text-align: left; cursor: pointer; line-height: 1.5;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .choice-btn.selected { border-color: var(--accent); background: var(--bg); font-weight: 500; }
+
+  /* ── Buttons ── */
+  .action-row { display: flex; gap: 10px; margin-top: 1rem; }
+  .btn-primary {
+    flex: 1; background: var(--accent); color: var(--bg); border: none;
+    border-radius: var(--radius-sm); padding: 0.75rem 1.25rem; font-size: 14px;
+    font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 500; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary:active { opacity: 0.75; }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-secondary {
+    background: transparent; color: var(--text2); border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 13px;
+    font-family: 'Zen Kaku Gothic New', sans-serif; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-track { display: flex; gap: 4px; }
+  .progress-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border); }
+  .progress-dot.done { background: var(--accent); }
+  .progress-dot.active { background: var(--text2); }
+  .progress-label { font-size: 11px; color: var(--text3); text-align: right; margin-top: 4px; }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    font-size: 12px; color: var(--text3); background: var(--bg2);
+    border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem;
+    line-height: 1.8; word-break: break-all;
+  }
+
+  /* ── Taste grid ── */
+  .taste-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
+  .taste-btn {
+    background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius);
+    padding: 1rem; cursor: pointer; text-align: left;
+    font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .taste-btn.selected { border-color: var(--accent); background: var(--bg); }
+  .taste-btn .taste-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .taste-btn .taste-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+  /* ── Result ── */
+  .tree-node { font-size: 13px; color: var(--text2); display: flex; gap: 8px; padding: 4px 0; line-height: 1.5; }
+  .prompt-box {
+    background: var(--bg2); border-radius: var(--radius-sm); padding: 1rem;
+    font-size: 13px; line-height: 1.8; color: var(--text2); white-space: pre-wrap;
+    margin-bottom: 1rem; max-height: 240px; overflow-y: auto;
+    border: 0.5px solid var(--border);
+  }
+
+  /* ── Guide ── */
+  .guide-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
+  .guide-step { display: flex; gap: 12px; align-items: flex-start; }
+  .guide-num {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--bg);
+    font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .guide-text { font-size: 14px; line-height: 1.6; color: var(--text2); }
+  .guide-text strong { color: var(--text); font-weight: 500; }
+
+  /* ── Toast ── */
+  .copy-toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: var(--bg); border-radius: 20px;
+    padding: 0.6rem 1.4rem; font-size: 14px; font-family: 'Zen Kaku Gothic New', sans-serif;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100; white-space: nowrap;
+  }
+  .copy-toast.show { opacity: 1; }
+
+  .error-msg { font-size: 13px; color: var(--danger); background: var(--danger-bg); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-top: 0.75rem; }
+
+  @media (max-width: 400px) {
+    .fi-grid { grid-template-columns: 1fr; }
+    .taste-grid { grid-template-columns: 1fr; }
+    .fi-btn { text-align: left; display: flex; align-items: center; gap: 10px; padding: 0.75rem 1rem; }
+    .fi-btn .fi-emoji { font-size: 20px; margin-bottom: 0; flex-shrink: 0; }
+    .fi-btn .fi-label, .fi-btn .fi-sub { display: inline; }
+    .fi-btn .fi-sub::before { content: '　'; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <h1>名前のない言葉</h1>
+    <p>曖昧な感想をカタチにする</p>
+  </div>
+
+  <!-- START -->
+  <div id="page-start" class="page active">
+    <div class="card">
+      <div class="step-label">Step 1 — 作品・テーマ</div>
+      <div class="tag-row" id="type-group">
+        <button class="tag-btn" data-type="book">本・小説</button>
+        <button class="tag-btn" data-type="movie">映画・ドラマ</button>
+        <button class="tag-btn" data-type="news">ニュース・資料</button>
+        <button class="tag-btn" data-type="other">その他</button>
+      </div>
+      <input class="input-area" id="workTitle" placeholder="作品名・テーマ（例：映画『ドライブ・マイ・カー』）" style="height:44px;">
+    </div>
+    <div class="card">
+      <div class="step-label">Step 2 — ファーストインプレッション</div>
+      <div class="question-text" style="font-size:16px;margin-bottom:1rem;"><span id="fi-verb">読んで</span>・観て、最初に感じたのはどれに近い？</div>
+      <div class="fi-grid" id="first-group">
+        <button class="fi-btn" data-fi="kyokan"><span class="fi-emoji">🫂</span><span class="fi-label">共感した</span><span class="fi-sub">登場人物や状況に「わかる」と感じた</span></button>
+        <button class="fi-btn" data-fi="kando"><span class="fi-emoji">🥹</span><span class="fi-label">感動した</span><span class="fi-sub">胸が熱くなった・涙が出た</span></button>
+        <button class="fi-btn" data-fi="omoshiroi"><span class="fi-emoji">✨</span><span class="fi-label">面白かった</span><span class="fi-sub">純粋に楽しめた・夢中になった</span></button>
+        <button class="fi-btn" data-fi="kanashimi"><span class="fi-emoji">🌧️</span><span class="fi-label">切なかった・悲しかった</span><span class="fi-sub">胸が痛くなった・哀愁を感じた</span></button>
+        <button class="fi-btn" data-fi="moya"><span class="fi-emoji">🌫️</span><span class="fi-label">もやっとした・怖かった</span><span class="fi-sub">違和感・不安・ぞっとした</span></button>
+        <button class="fi-btn" data-fi="wakaranai"><span class="fi-emoji">🌀</span><span class="fi-label">よくわからなかった</span><span class="fi-sub">難しい・何を感じたかつかめない</span></button>
+      </div>
+      <div class="hint">追加で一言あれば（任意）</div>
+      <textarea class="input-area" id="impression" rows="2" placeholder="例：なんかずっと頭に残ってる　／　主人公が気になった"></textarea>
+      <div class="action-row"><button class="btn-primary" id="btn-start">掘り下げる →</button></div>
+      <div id="start-err"></div>
+    </div>
+  </div>
+
+  <!-- ASKING -->
+  <div id="page-asking" class="page">
+    <div class="progress-wrap">
+      <div class="progress-track" id="progress-track"></div>
+      <div class="progress-label" id="progress-label"></div>
+    </div>
+    <div class="card">
+      <div class="breadcrumb" id="breadcrumb" style="display:none;"></div>
+      <div class="step-label" id="depth-label"></div>
+      <div class="question-text" id="question-text"></div>
+      <div class="choices" id="choices-list"></div>
+      <div class="hint">複数選んでもOK。ピンとこなければ自由に追記を↓</div>
+      <textarea class="input-area" id="free-input" rows="2" placeholder="自分の言葉で追加（任意）"></textarea>
+      <div class="action-row">
+        <button class="btn-secondary" id="btn-back">← 戻る</button>
+        <button class="btn-primary" id="btn-next">次へ →</button>
+      </div>
+      <div id="ask-err"></div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="page-result" class="page">
+    <div class="card">
+      <div class="step-label" style="margin-bottom:0.75rem;">思考の道すじ</div>
+      <div id="result-path"></div>
+    </div>
+    <div class="card">
+      <div class="step-label" style="margin-bottom:1rem;">原稿のテイストを選んでください</div>
+      <div class="taste-grid" id="taste-group">
+        <button class="taste-btn" data-taste="casual"><div class="taste-name">💬 雑談・カジュアル</div><div class="taste-desc">友人との会話・読書会向け。自然な口語で</div></button>
+        <button class="taste-btn" data-taste="presentation"><div class="taste-name">📊 プレゼン・論理的</div><div class="taste-desc">職場・授業向け。論点を整理して明確に</div></button>
+        <button class="taste-btn" data-taste="sns"><div class="taste-name">📱 SNS・キャッチー</div><div class="taste-desc">X・Instagram向け。冒頭一文で掴む</div></button>
+        <button class="taste-btn" data-taste="essay"><div class="taste-name">✍️ エッセイ・文学的</div><div class="taste-desc">読書感想文・寄稿向け。丁寧な文体で</div></button>
+      </div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.7;">
+        テイストを選んだら、下のボタンでChatGPTが開きます。<br>内容が自動でコピーされるので、そのまま貼り付けてください。
+      </div>
+      <button class="btn-primary" id="btn-open-chatgpt" disabled>ChatGPTで原稿を作る ↗</button>
+    </div>
+
+    <div class="card">
+      <div class="step-label" style="margin-bottom:1rem;">原稿の作り方</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-num">1</div><div class="guide-text">上のボタンを押すと、<strong>プロンプトがコピーされて</strong> ChatGPTが開きます</div></div>
+        <div class="guide-step"><div class="guide-num">2</div><div class="guide-text">チャット入力欄に <strong>貼り付け（長押し→ペースト）</strong> して送信</div></div>
+        <div class="guide-step"><div class="guide-num">3</div><div class="guide-text">原稿が生成されます。気に入らなければ「もっと〇〇にして」と追加で話しかけてOK</div></div>
+      </div>
+      <div style="margin-top:0.75rem;">
+        <div class="hint" style="margin-bottom:0.5rem;">プロンプトを手動でコピーする場合はこちら</div>
+        <div class="prompt-box" id="prompt-preview">テイストを選ぶとここに表示されます</div>
+        <button class="btn-secondary" id="btn-copy-prompt" style="width:100%;">プロンプトをコピー</button>
+      </div>
+    </div>
+
+    <div class="card" style="padding:1rem 1.25rem;">
+      <div class="action-row" style="margin-top:0;">
+        <button class="btn-secondary" id="btn-reset">最初からやり直す</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-toast" id="copy-toast">コピーしました</div>
+
+<script>
+// ── メディアタイプ別の動詞 ──
+const TYPE_VERBS = {
+  book:  { finish: '読み終わって', during: '読んでいて',  after: '読んで' },
+  movie: { finish: '観終わって',   during: '観ていて',    after: '観て' },
+  news:  { finish: '読み終わって', during: '読んでいて',  after: '読んで' },
+  other: { finish: '体験し終わって', during: '体験していて', after: '体験して' },
+};
+function verb(key) {
+  const t = TYPE_VERBS[S.workType] || TYPE_VERBS.other;
+  return t[key] || t.after;
+}
+
+// ── 質問ツリー（動詞を関数で差し込む） ──
+function buildTrees() {
+  return {
+  kyokan: {
+    q2: { q:'「共感した」って、どんな感じに近い？', choices:[
+      {label:'ずっと感じてたのに言葉がなかったものに、名前をつけてもらった感じ', next:'kyokan_q3a'},
+      {label:'見てほしかった場所を、ちゃんと見てくれた感じ', next:'kyokan_q3a'},
+      {label:'自分だけが感じていると思っていたことを、知られてしまった感じ', next:'kyokan_q3a'},
+      {label:'痛いところを押されたのに、なぜか安心した', next:'kyokan_q3b'},
+      {label:'昔の自分に会いに行かされた感じ', next:'kyokan_q3b'},
+      {label:'他人の話なのに、自分のことを言われているようで怖かった', next:'kyokan_q3b'},
+    ]},
+    kyokan_q3a: { q:'その「わかってもらえた」感覚——何が一番近い？', choices:[
+      {label:'ずっと「変なのかな」と思っていた感情が、変じゃなかったと知れた', next:'kyokan_q4a'},
+      {label:'誰かに話したいのに話せなかったことを、代わりに言ってくれた', next:'kyokan_q4a'},
+      {label:'自分の感情に「そうか、そういう名前だったのか」と思った', next:'kyokan_q4a'},
+      {label:'一人じゃなかったと思えた——でも少し悔しかった', next:'kyokan_q4a'},
+      {label:'誰かにこれを見せたい、この気持ちをわかってほしいと思った', next:'kyokan_q4a'},
+    ]},
+    kyokan_q3b: { q:'その「痛いのに安心した」感覚——どこから来てると思う？', choices:[
+      {label:'その登場人物の「ダメな部分」が、自分にもあると気づいてしまった', next:'kyokan_q4b'},
+      {label:'自分が見ないようにしていた感情を、正面から描かれた', next:'kyokan_q4b'},
+      {label:'昔の自分が、まだ自分の中にいると気づいた', next:'kyokan_q4b'},
+      {label:'その人の孤独が、自分の孤独と同じ形をしていた', next:'kyokan_q4b'},
+      {label:'「これは自分の話だ」と思った瞬間、目をそらしたくなった', next:'kyokan_q4b'},
+      {label:'誰かに「気づかれてしまった」ような感覚があった', next:'kyokan_q4b'},
+    ]},
+    kyokan_q4a: { q:'その「わかってもらえた」感覚——今の自分とも繋がってた？', choices:[
+      {label:'今、誰かに気づいてほしいのにうまく伝えられていないことがある', next:'kyokan_q5'},
+      {label:'最近、自分の感情を後回しにしていた気がする', next:'kyokan_q5'},
+      {label:'「自分の気持ち」を言葉にする機会が、ずっとなかった', next:'kyokan_q5'},
+      {label:'今は大丈夫。でも昔はそうだった', next:'kyokan_q5'},
+      {label:'特定の誰かとの関係の中で、同じ感覚がある', next:'kyokan_q5'},
+    ]},
+    kyokan_q4b: { q:'その「痛み」——自分の中でどれくらい古いもの？', choices:[
+      {label:'かなり古い——子どもの頃からある感覚だと思う', next:'kyokan_q5'},
+      {label:'特定の出来事の後から、ずっとある', next:'kyokan_q5'},
+      {label:'最近また出てきた——昔は乗り越えたと思っていた', next:'kyokan_q5'},
+      {label:'いつからかわからない。気づいたらあった', next:'kyokan_q5'},
+      {label:'今この瞬間に初めて気づいた', next:'kyokan_q5'},
+    ]},
+    kyokan_q5: { q:'その感情、普段はどこに置いてる？', choices:[
+      {label:'見ないようにして、日常で埋めている', next:'kyokan_q6'},
+      {label:'誰かに話したいけど、話せる相手がいない・選べない', next:'kyokan_q6'},
+      {label:'自分でも気づかないようにしていた——この作品で初めて出てきた', next:'kyokan_q6'},
+      {label:'ずっと一人で抱えていて、それが普通になっている', next:'kyokan_q6'},
+      {label:'言葉にしようとすると消えてしまう気がして、言語化を避けていた', next:'kyokan_q6'},
+      {label:'誰かに見せたことがある。でも伝わらなかった', next:'kyokan_q6'},
+    ]},
+    kyokan_q6: { q:'この作品と出会ったのは、今の自分にとって何だったと思う？', choices:[
+      {label:'自分が感じていいんだと、許可をもらえた感じ', next:'__end__'},
+      {label:'ずっと後回しにしていた何かに、向き合うタイミングだったかもしれない', next:'__end__'},
+      {label:'誰かに話すより、一人でいられる場所が必要だったのかもしれない', next:'__end__'},
+      {label:'偶然じゃなかった気がする——今だから刺さったんだと思う', next:'__end__'},
+      {label:'わからない。でも確かに、今日の自分には必要だった', next:'__end__'},
+      {label:'自分の中に、まだ語られていない物語があると気づいた', next:'__end__'},
+    ]},
+  },
+
+  kando: {
+    q2: { q:`${verb('finish')}どんな感動だった？`, choices:[
+      {label:'涙が出た。でも悲しくはなかった', next:'kando_namida'},
+      {label:'じわじわと後から来た。しばらくしてから', next:'kando_jiwajiwa'},
+      {label:'胸が熱くなって、誰かに話したくなった', next:'kando_hanashitai'},
+      {label:'主人公を応援していたら、自分のことも応援していた', next:'kando_jibun'},
+      {label:'美しいものを見た感覚。表現そのものが刺さった', next:'kando_utsukushii'},
+      {label:'何かが報われた感じがした', next:'kando_mukuwareru'},
+    ]},
+    kando_namida: { q:'涙が出たのは、どの瞬間？', choices:[
+      {label:'誰かが諦めずに立ち上がった場面', next:'kando_naze'},
+      {label:'誰かが誰かのために動いた場面', next:'kando_naze'},
+      {label:'長い時間が報われた場面', next:'kando_naze'},
+      {label:'別れ・終わりの場面', next:'kando_naze'},
+      {label:'セリフ一言に全部が込められていた', next:'kando_kotoba'},
+      {label:'涙の理由が自分でもわからなかった', next:'kando_naze'},
+    ]},
+    kando_jiwajiwa: { q:'じわじわ来たのは何が理由だと思う？', choices:[
+      {label:`${verb('during')}は気を張っていた`, next:'kando_naze'},
+      {label:'全部繋がった瞬間が、後から来た', next:'kando_naze'},
+      {label:'静かな作品だったのに、深かった', next:'kando_naze'},
+      {label:'自分の経験と重なる部分に、後で気づいた', next:'kando_jibun'},
+      {label:'「これは大事な作品だ」という確信が来た', next:'kando_naze'},
+    ]},
+    kando_hanashitai: { q:'誰かに話したくなったのはなぜ？', choices:[
+      {label:'この気持ちを分かち合いたかった', next:'kando_naze'},
+      {label:'勧めたい特定の人が頭に浮かんだ', next:'kando_jibun'},
+      {label:'一人で抱えるには大きすぎた', next:'kando_naze'},
+      {label:'語り合うことでもっと深まる気がした', next:'kando_naze'},
+      {label:'この体験を共有したかった', next:'kando_naze'},
+    ]},
+    kando_jibun: { q:'登場人物のどこに自分を重ねた？', choices:[
+      {label:'諦めない姿——自分も諦めたくないから', next:'kando_ima'},
+      {label:'傷ついても誰かを想い続ける姿', next:'kando_ima'},
+      {label:'弱さを抱えながら前に進む姿', next:'kando_ima'},
+      {label:'報われなくても続ける姿', next:'kando_ima'},
+      {label:'なりたい自分、ではなく今の自分', next:'kando_ima'},
+    ]},
+    kando_utsukushii: { q:'その美しさ、何が一番印象に残った？', choices:[
+      {label:'セリフ・言葉の選び方', next:'kando_kotoba'},
+      {label:'場面の描写・映像・音', next:'kando_naze'},
+      {label:'二人の関係性の描き方', next:'kando_naze'},
+      {label:'終わり方・余韻の残し方', next:'kando_naze'},
+      {label:'全体を貫いているトーン・空気感', next:'kando_naze'},
+    ]},
+    kando_mukuwareru: { q:'何が報われた感じがした？', choices:[
+      {label:'ずっと頑張っていたキャラクターへの気持ち', next:'kando_naze'},
+      {label:'自分の中にある「これでよかったんだ」という感覚', next:'kando_jibun'},
+      {label:'信じ続けることへの肯定', next:'kando_ima'},
+      {label:'長い時間をかけた積み重ねへの敬意', next:'kando_naze'},
+      {label:'うまく言えないが、何かが浮かばれた', next:'kando_naze'},
+    ]},
+    kando_kotoba: { q:'そのセリフ・言葉、なぜ刺さった？', choices:[
+      {label:'ずっと言いたかったことを言ってくれた', next:'kando_ima'},
+      {label:'自分の感情に名前をつけてくれた', next:'kando_ima'},
+      {label:'誰かに言ってほしかった言葉だった', next:'kando_ima'},
+      {label:'シンプルなのに全部が詰まっていた', next:'kando_ima'},
+      {label:'今の自分にだけ刺さるタイミングだった', next:'kando_ima'},
+    ]},
+    kando_naze: { q:'なぜそこまで動かされたと思う？', choices:[
+      {label:'自分の経験・感情と深く重なっていた', next:'kando_ima'},
+      {label:'普段考えないことを考えさせられた', next:'kando_ima'},
+      {label:'自分が求めていたものがそこにあった', next:'kando_ima'},
+      {label:'表現・言葉の力そのものに打たれた', next:'kando_ima'},
+      {label:'理由はわからないが、確かに動かされた', next:'kando_ima'},
+      {label:'心の奥にある何かに、そっと触れられた感じ', next:'kando_ima'},
+    ]},
+    kando_ima: { q:'この作品を経て、今の自分は？', choices:[
+      {label:'何か大切なものを思い出せた気がする', next:'__end__'},
+      {label:'もう少し自分に優しくできそうな気がした', next:'__end__'},
+      {label:'誰かのことを大切にしたいと思った', next:'__end__'},
+      {label:'まだ消化中。でも何かが変わった', next:'__end__'},
+      {label:'この感覚を忘れないようにしておきたい', next:'__end__'},
+      {label:'ただ、よい時間だった。それだけでいい', next:'__end__'},
+    ]},
+  },
+
+  omoshiroi: {
+    q2: { q:`${verb('during')}どんな「面白さ」を感じた？`, choices:[
+      {label:'展開が読めなくて止まらなかった', next:'omo_tenkai'},
+      {label:'キャラクターが好きすぎた', next:'omo_chara'},
+      {label:'世界観・設定が最高だった', next:'omo_sekai'},
+      {label:'テンポが気持ちよかった・スカッとした', next:'omo_comfy'},
+      {label:'知らなかったことを知れた充実感', next:'omo_chishiki'},
+      {label:'全部。とにかく好きだった', next:'omo_zenbu'},
+    ]},
+    omo_tenkai: { q:'どの展開が特に刺さった？', choices:[
+      {label:'伏線が回収された瞬間の快感', next:'omo_naze'},
+      {label:'予想の斜め上を行く展開', next:'omo_naze'},
+      {label:'信頼していたキャラの意外な一面', next:'omo_naze'},
+      {label:'絶望からの逆転', next:'omo_naze'},
+      {label:'最後のどんでん返し', next:'omo_naze'},
+      {label:`${verb('during')}ずっとドキドキしていた`, next:'omo_naze'},
+    ]},
+    omo_chara: { q:'そのキャラのどこが好き？', choices:[
+      {label:'自分に似ていて、応援したくなる', next:'omo_jibun'},
+      {label:'自分にないものを持っている', next:'omo_naze'},
+      {label:'弱さも含めて全部好き', next:'omo_naze'},
+      {label:'こんな人が実際にいてほしい', next:'omo_naze'},
+      {label:'敵・ライバルなのに魅力的すぎる', next:'omo_naze'},
+      {label:'成長していく過程が好き', next:'omo_naze'},
+      {label:'最初は嫌いだったのに好きになった', next:'omo_naze'},
+    ]},
+    omo_sekai: { q:'その世界観、何が一番好き？', choices:[
+      {label:'ルールや設定の精緻さ・一貫性', next:'omo_naze'},
+      {label:'現実とは違う価値観・常識', next:'omo_naze'},
+      {label:'その世界に実際に行ってみたい', next:'omo_jibun'},
+      {label:'現実をうまく反映・拡張している', next:'omo_naze'},
+      {label:'空気感・雰囲気が好みだった', next:'omo_naze'},
+      {label:'細部まで作り込まれた密度', next:'omo_naze'},
+    ]},
+    omo_comfy: { q:'その心地よさ、どこから来てる？', choices:[
+      {label:`${verb('during')}日常を忘れられた`, next:'omo_jibun'},
+      {label:'テンポが自分のリズムに合っていた', next:'omo_naze'},
+      {label:'こういうものが今の自分に必要だった', next:'omo_jibun'},
+      {label:'安心して楽しめる・裏切られない感じ', next:'omo_naze'},
+      {label:'笑いながらも何か大切なものがあった', next:'omo_naze'},
+    ]},
+    omo_chishiki: { q:'何を知れた充実感？', choices:[
+      {label:'自分の知らない世界・文化・時代', next:'omo_naze'},
+      {label:'物事の別の見方・新しい視点', next:'omo_jibun'},
+      {label:'今まで気づかなかった自分の感情', next:'omo_jibun'},
+      {label:'社会・人間への理解が深まった', next:'omo_naze'},
+      {label:'この作品を通じて興味が広がった', next:'omo_naze'},
+    ]},
+    omo_zenbu: { q:'その「全部好き」の中で、一番残ったのは？', choices:[
+      {label:'あるシーンが頭から離れない', next:'omo_naze'},
+      {label:'あるキャラのことをずっと考えている', next:'omo_chara'},
+      {label:`${verb('finish')}余韻が特によかった`, next:'omo_jibun'},
+      {label:'誰かに勧めたくて仕方ない', next:'omo_naze'},
+      {label:'また観返したい・読み返したい', next:'omo_jibun'},
+    ]},
+    omo_naze: { q:'なぜそれがあなたに刺さったと思う？', choices:[
+      {label:'自分の好みにドンピシャだった', next:'omo_jibun'},
+      {label:'今の自分が求めていたものがあった', next:'omo_jibun'},
+      {label:'作り手の愛・熱量が伝わってきた', next:'omo_jibun'},
+      {label:'理由はわからないが、好きは確か', next:'omo_jibun'},
+      {label:'昔好きだったものと繋がっていた', next:'omo_jibun'},
+      {label:'こんな体験をしたかったんだと気づいた', next:'omo_jibun'},
+    ]},
+    omo_jibun: { q:'この作品を楽しんだ自分は、どんな自分だと思う？', choices:[
+      {label:'こういうものが好きな自分を再確認できた', next:'__end__'},
+      {label:'夢中になれるものがある自分はいいなと思った', next:'__end__'},
+      {label:'新しい好きを見つけた自分', next:'__end__'},
+      {label:'今の自分に合った出会いだった', next:'__end__'},
+      {label:'誰かと一緒に楽しみたかった', next:'__end__'},
+    ]},
+  },
+
+  kanashimi: {
+    q2: { q:`${verb('after')}その切なさ・悲しさ、どこから来てる？`, choices:[
+      {label:'何かが永遠に失われた感じ', next:'kana_ushinau'},
+      {label:'届かなかった・伝わらなかった想い', next:'kana_todokanu'},
+      {label:'時間は戻らないという感覚', next:'kana_jikan'},
+      {label:'悲しいのに美しいという矛盾', next:'kana_utsukushii'},
+      {label:'どうにもできなかった無力感', next:'kana_muryoku'},
+      {label:'うまく言えないけど、胸が痛い', next:'kana_naze'},
+      {label:'好きだったものが変わってしまう寂しさ', next:'kana_jikan'},
+      {label:'誰かへの罪悪感・申し訳なさ', next:'kana_zaiakukan'},
+    ]},
+    kana_ushinau: { q:'失われたのは何だと思う？', choices:[
+      {label:'大切な人との時間・関係', next:'kana_jibun'},
+      {label:'子ども時代・無邪気さ', next:'kana_kako'},
+      {label:'もうひとつの人生・選ばなかった道', next:'kana_jibun'},
+      {label:'信じていたもの・価値観', next:'kana_kachi'},
+      {label:'自分らしさ・純粋さ', next:'kana_jibun'},
+      {label:'取り戻せない記憶', next:'kana_kako'},
+      {label:'漠然とした「何か」で言葉にならない', next:'kana_naze'},
+    ]},
+    kana_todokanu: { q:'誰の想いが届かなかったと感じた？', choices:[
+      {label:'愛情・好意なのに伝わらなかった', next:'kana_naze'},
+      {label:'必死さ・真剣さを分かってもらえなかった', next:'kana_naze'},
+      {label:'もう会えない誰かへの言葉', next:'kana_jibun'},
+      {label:'タイミングが合わなかっただけの悲劇', next:'kana_jibun'},
+      {label:'過去の自分に届かない後悔', next:'kana_kako'},
+    ]},
+    kana_jikan: { q:'時間について、どんな気持ちが湧いた？', choices:[
+      {label:'あの頃に戻りたい・戻れない辛さ', next:'kana_kako'},
+      {label:'今この瞬間も消えていくという感覚', next:'kana_ima'},
+      {label:'もっと大切にしていればよかった後悔', next:'kana_kachi'},
+      {label:'過ぎ去った時間が急に愛おしくなった', next:'kana_jibun'},
+      {label:'未来の自分が今を懐かしむ気がした', next:'kana_ima'},
+      {label:'時間は平等なのに不公平という矛盾', next:'kana_kachi'},
+    ]},
+    kana_utsukushii: { q:'悲しいのに美しいと感じたのは？', choices:[
+      {label:'儚いものは美しいという感覚', next:'kana_naze'},
+      {label:'終わりがあるから輝いて見えた', next:'kana_kachi'},
+      {label:'悲劇の中の人の強さや優しさ', next:'kana_naze'},
+      {label:'言葉・表現そのものの美しさ', next:'kana_naze'},
+      {label:'悲しみを通してしか見えない真実がある', next:'kana_kachi'},
+    ]},
+    kana_muryoku: { q:'その無力感、どこから来てる？', choices:[
+      {label:'正しいことが報われない現実', next:'kana_kachi'},
+      {label:'愛情があっても救えないことがある', next:'kana_kachi'},
+      {label:'時間・運命は変えられないという感覚', next:'kana_jikan'},
+      {label:'自分の弱さへの情けなさ', next:'kana_jibun'},
+      {label:'傍観者でいることへの自己嫌悪', next:'kana_jibun'},
+    ]},
+    kana_zaiakukan: { q:'その罪悪感、何に対して？', choices:[
+      {label:'傷つけてしまった誰か', next:'kana_jibun'},
+      {label:'忘れてしまっていた大切な何か', next:'kana_kachi'},
+      {label:'何もできなかった・しなかった自分', next:'kana_ima'},
+      {label:'恵まれている自分への後ろめたさ', next:'kana_kachi'},
+      {label:'うまく言えないけど、ちくっとした', next:'kana_naze'},
+    ]},
+    kana_naze: { q:'なぜそこまで動かされたと思う？', choices:[
+      {label:'自分の経験・感情と深く重なっていた', next:'kana_jibun'},
+      {label:'普段考えないことを考えさせられた', next:'kana_kachi'},
+      {label:'誰かへの気持ちが呼び起こされた', next:'kana_jibun'},
+      {label:'心の中の何かに触れられた感じがした', next:'kana_jibun'},
+      {label:'理由はわからないが、確かに動かされた', next:'kana_kachi'},
+    ]},
+    kana_kako: { q:'過去のどんな自分と重なった？', choices:[
+      {label:'子どもの頃の自分・あの感覚', next:'kana_kachi'},
+      {label:'大きな決断を迫られた頃の自分', next:'kana_kachi'},
+      {label:'誰かを傷つけた・傷つけられた経験', next:'kana_kachi'},
+      {label:'何かを諦めた・手放した時期', next:'kana_kachi'},
+      {label:'一番孤独だった頃の自分', next:'kana_kachi'},
+      {label:'必死に生きていた頃の自分', next:'kana_kachi'},
+    ]},
+    kana_jibun: { q:'自分自身と重なるのは？', choices:[
+      {label:'過去の自分に似ている', next:'kana_kako'},
+      {label:'今まさに自分がそうだ', next:'kana_ima'},
+      {label:'なりたかった・なれなかった自分', next:'kana_kachi'},
+      {label:'誰かへの気持ちが思い浮かんだ', next:'kana_kachi'},
+      {label:'忘れていたことを思い出した', next:'kana_kako'},
+    ]},
+    kana_ima: { q:'今の自分のどんな状況と重なってる？', choices:[
+      {label:'誰かとの関係の中で感じていること', next:'kana_kachi'},
+      {label:'何かに向き合えていない自分', next:'kana_kachi'},
+      {label:'変わりたいのに変われない自分', next:'kana_kachi'},
+      {label:'頑張りすぎている・疲れている自分', next:'kana_kachi'},
+      {label:'自分の将来・方向性への不安', next:'kana_kachi'},
+    ]},
+    kana_kachi: { q:'この作品が揺さぶったのは？', choices:[
+      {label:'大事にしていたはずのものを忘れていた', next:'__end__'},
+      {label:'当たり前と思っていた価値観が揺らいだ', next:'__end__'},
+      {label:'まだ消化できていない・答えが出ない', next:'__end__'},
+      {label:'何かが解放された・軽くなった感じ', next:'__end__'},
+      {label:'言葉にならないが、確かに何かが変わった', next:'__end__'},
+      {label:'誰かのことを見直す・向き合うきっかけになった', next:'__end__'},
+    ]},
+  },
+
+  moya: {
+    q2: { q:`${verb('after')}もやもや・怖さ——その正体、どれに近い？`, choices:[
+      {label:'納得できない・腑に落ちない結末', next:'moya_ketsu'},
+      {label:'登場人物の誰かへの怒り・苛立ち', next:'moya_ikari'},
+      {label:'社会・世界の構造への疑問', next:'moya_shakai'},
+      {label:'自分も似たようなことをしていないか', next:'moya_jibun'},
+      {label:'正体不明・説明できない何かへの恐怖', next:'moya_fumei'},
+      {label:'人間の心の中にあるものへの怖さ', next:'moya_ningen'},
+      {label:'リアルすぎて明日にでも起きそうな怖さ', next:'moya_real'},
+      {label:'感情が複数あって整理できない', next:'moya_naze'},
+    ]},
+    moya_ketsu: { q:'何が受け入れられなかった？', choices:[
+      {label:'頑張った人が報われなかった', next:'moya_kachi'},
+      {label:'理不尽に奪われた・壊された', next:'moya_shakai'},
+      {label:'曖昧な終わり方で宙ぶらりんのまま', next:'moya_naze'},
+      {label:'悪が罰せられなかった', next:'moya_shakai'},
+      {label:'もっと違う未来があったはずという悔しさ', next:'moya_jibun'},
+      {label:'現実がそうだからこそ、辛い', next:'moya_kachi'},
+    ]},
+    moya_ikari: { q:'その怒り、どこに向いてる？', choices:[
+      {label:'特定の登場人物の言動・選択', next:'moya_naze'},
+      {label:'無関心・見て見ぬふりをした人たち', next:'moya_jibun'},
+      {label:'善意のつもりで傷つけた人', next:'moya_kachi'},
+      {label:'権力・システム・社会', next:'moya_shakai'},
+      {label:'誰かのせいにできない状況そのもの', next:'moya_naze'},
+      {label:'もしかしたら自分にも近い部分がある', next:'moya_jibun'},
+    ]},
+    moya_shakai: { q:'その疑問、どんな形で残ってる？', choices:[
+      {label:'正義・倫理って何だろうという問い', next:'moya_kachi'},
+      {label:'自分ならどうするか・できるか', next:'moya_jibun'},
+      {label:'この社会のままでいいのかという不安', next:'moya_kachi'},
+      {label:'知らなかった・気づいていなかった自分への驚き', next:'moya_jibun'},
+      {label:'誰かに話して確かめたい・議論したい', next:'__end__'},
+    ]},
+    moya_jibun: { q:'自分への問い、どんな形？', choices:[
+      {label:'自分も似たことをしていると気づいた', next:'moya_kachi'},
+      {label:'同じ状況で自分はどうするか、怖い', next:'moya_kachi'},
+      {label:'見て見ぬふりをしていることがある', next:'moya_kachi'},
+      {label:'自分の中の偏見・先入観に気づいた', next:'moya_kachi'},
+      {label:'正しいと思っていたことが揺らいだ', next:'moya_kachi'},
+    ]},
+    moya_fumei: { q:'その「説明できない怖さ」、どんな感じ？', choices:[
+      {label:'理屈ではなく、感覚・体で感じる怖さ', next:'moya_naze'},
+      {label:'怖いのになぜか引き込まれる', next:'moya_naze'},
+      {label:'その世界が実在しそうで怖い', next:'moya_real'},
+      {label:'人間の理解を超えた何かへの畏怖', next:'moya_kachi'},
+      {label:'暗い部分に触れてしまった感じ', next:'moya_jibun'},
+    ]},
+    moya_ningen: { q:'人間のどこが怖かった？', choices:[
+      {label:'善意が生む悪・無意識の加害', next:'moya_kachi'},
+      {label:'集団の中で変わっていく個人', next:'moya_shakai'},
+      {label:'正義を信じる人ほど残酷になれる', next:'moya_kachi'},
+      {label:'自分の中にも同じものがあると感じた', next:'moya_jibun'},
+      {label:'愛情と支配・執着の紙一重', next:'moya_naze'},
+    ]},
+    moya_real: { q:'どのくらいリアルに感じた？', choices:[
+      {label:'明日にでも起こりそうで息が詰まった', next:'moya_kachi'},
+      {label:'すでに起きていることだと気づいた', next:'moya_shakai'},
+      {label:'誰でもこうなりうるという普遍性が怖い', next:'moya_kachi'},
+      {label:'気づかないふりをしていたことだと思った', next:'moya_jibun'},
+      {label:'フィクションと現実の境界が消えた瞬間があった', next:'moya_naze'},
+    ]},
+    moya_naze: { q:'なぜそこまで動かされたと思う？', choices:[
+      {label:'自分の経験・感情と深く重なっていた', next:'moya_jibun'},
+      {label:'普段考えないことを考えさせられた', next:'moya_kachi'},
+      {label:'自分が求めていたものがそこにあった', next:'moya_kachi'},
+      {label:'理由はわからないが、確かに動かされた', next:'moya_kachi'},
+    ]},
+    moya_kachi: { q:'この作品が揺さぶったのは？', choices:[
+      {label:'当たり前と思っていた価値観が揺らいだ', next:'__end__'},
+      {label:'自分の見方・感じ方が変わった気がする', next:'__end__'},
+      {label:'まだ消化できていない・答えが出ない', next:'__end__'},
+      {label:'新しい問いが生まれた', next:'__end__'},
+      {label:'言葉にならないが、確かに何かが変わった', next:'__end__'},
+      {label:'誰かのことを見直す・向き合うきっかけになった', next:'__end__'},
+    ]},
+  },
+
+  wakaranai: {
+    q2: { q:`${verb('after')}「わからなかった」って、どんな感じ？`, choices:[
+      {label:'難しくて内容がつかめなかった', next:'waka_muzukashii'},
+      {label:'ストーリーはわかったが、感情が動かなかった', next:'waka_kandou'},
+      {label:'何かを感じているのに言葉にならない', next:'waka_kotoba'},
+      {label:'好きなのか嫌いなのかわからない', next:'waka_sukikirai'},
+      {label:'もやもやが残っているが、何かはわからない', next:'waka_moya'},
+      {label:'今の自分には早すぎた・刺さらなかった', next:'waka_timing'},
+    ]},
+    waka_muzukashii: { q:'何が難しかった？', choices:[
+      {label:'内容・テーマが複雑すぎた', next:'waka_next'},
+      {label:'前提知識がなかった', next:'waka_next'},
+      {label:'登場人物が多くて追えなかった', next:'waka_next'},
+      {label:'作者の言いたいことがつかめなかった', next:'waka_next'},
+      {label:'全部わかってはいるが、深く感じられなかった', next:'waka_kandou'},
+    ]},
+    waka_kandou: { q:'感情が動かなかったのはなぜだと思う？', choices:[
+      {label:'今の自分の状況と遠すぎた', next:'waka_next'},
+      {label:'登場人物に共感できなかった', next:'waka_next'},
+      {label:'疲れていて、受け取れなかった', next:'waka_timing'},
+      {label:'期待が高すぎた・ギャップがあった', next:'waka_next'},
+      {label:'実は少し感じていたが、認めたくない気持ちがある', next:'waka_kotoba'},
+    ]},
+    waka_kotoba: { q:'言葉にならないけど、何かある感じ——どれに近い？', choices:[
+      {label:`${verb('after')}何かが残っている`, next:'waka_nokoru'},
+      {label:'特定のシーンが頭に残っている', next:'waka_nokoru'},
+      {label:'感情ではなく、何かを「知った」感じ', next:'waka_next'},
+      {label:'時間が経ったら意味がわかるかもしれない', next:'waka_timing'},
+      {label:'誰かと話してみたら何か出てくる気がする', next:'waka_next'},
+    ]},
+    waka_sukikirai: { q:'その「好きかどうかわからない」感覚——？', choices:[
+      {label:'面白いのに後味が悪い', next:'waka_nokoru'},
+      {label:'嫌いではないが好きとも言えない', next:'waka_next'},
+      {label:'苦手なのに引き込まれた', next:'waka_nokoru'},
+      {label:'好きな人の気持ちはわかる気がする', next:'waka_next'},
+      {label:'評価はできないが、何かは感じた', next:'waka_kotoba'},
+    ]},
+    waka_moya: { q:'そのもやもや、どこから来てると思う？', choices:[
+      {label:'結論が出なかった・宙ぶらりんのまま', next:'waka_next'},
+      {label:'自分の何かに触れたような気がする', next:'waka_kotoba'},
+      {label:'問いを投げかけられた感じ', next:'waka_next'},
+      {label:'整理する時間が必要な感じ', next:'waka_timing'},
+    ]},
+    waka_timing: { q:'「今の自分には早い・遅い」と感じたなら？', choices:[
+      {label:'数年後に体験したら全然違う感じ方をしそう', next:'waka_next'},
+      {label:'過去の自分なら刺さっていたかもしれない', next:'waka_next'},
+      {label:'今の自分には受け取る準備がなかった', next:'waka_next'},
+      {label:'タイミングが全てだと思った', next:'waka_next'},
+    ]},
+    waka_nokoru: { q:'残っているもの——どんな形で残ってる？', choices:[
+      {label:'特定の場面・言葉', next:'waka_next'},
+      {label:'漠然とした空気感・雰囲気', next:'waka_next'},
+      {label:'自分への問いかけ', next:'waka_next'},
+      {label:'誰かの顔・自分の過去', next:'waka_next'},
+      {label:'何かが動いた感覚だけ', next:'waka_next'},
+    ]},
+    waka_next: { q:'この体験から、次に何かしたい？', choices:[
+      {label:'同じ作者の別作品を体験したい', next:'__end__'},
+      {label:'誰かに感想を聞いてみたい', next:'__end__'},
+      {label:'もう一度体験したい', next:'__end__'},
+      {label:'少し時間をおいてから考えたい', next:'__end__'},
+      {label:'関連する作品・解説を探したい', next:'__end__'},
+      {label:'まずこの感覚をどこかに書き留めたい', next:'__end__'},
+    ]},
+  },
+  };
+}
+
+const TASTES = {
+  casual:       { name:'雑談・カジュアル',  instruction:'友人との読書会・雑談で話すような口語文。「〜だった」「〜って感じで」など自然な話し言葉。感情をそのまま素直に。200〜250字程度。' },
+  presentation: { name:'プレゼン・論理的',  instruction:'職場や授業の発表向け。「第一に〜、第二に〜」「この作品から読み取れるのは〜」など論理的な構成。結論を明確に。400〜500字。' },
+  sns:          { name:'SNS・キャッチー',   instruction:'X（旧Twitter）やInstagramのキャプション向け。冒頭一文で掴む。改行多め。ハッシュタグ2〜3個付き。150字以内のメイン文。' },
+  essay:        { name:'エッセイ・文学的',  instruction:'読書感想文や寄稿向け。情景描写や内省を丁寧な文語体で。比喩や余白を大切に。500〜600字。' },
+};
+
+const FI_LABELS = {
+  kyokan:'共感した', kando:'感動した', omoshiroi:'面白かった',
+  kanashimi:'切なかった・悲しかった', moya:'もやっとした・怖かった', wakaranai:'よくわからなかった'
+};
+
+const S = {
+  workType:'', workTitle:'',
+  firstImpression:'', firstComment:'',
+  currentTree:null, currentNodeKey:'',
+  history:[], selectedChoices:[],
+  maxDepth:12, selectedTaste:'',
+};
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-'+name));
+  window.scrollTo(0, 0);
+}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function showToast(msg) {
+  const t = document.getElementById('copy-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function buildPrompt() {
+  if (!S.selectedTaste || !S.history.length) return '';
+  const taste = TASTES[S.selectedTaste];
+  const hist = S.history.map((h,i) => `${i+1}. ${h.q} → ${h.answer}`).join('\n');
+  const work = S.workTitle ? `「${S.workTitle}」` : 'この作品';
+  const comment = S.firstComment ? `（補足：${S.firstComment}）` : '';
+  return `${work}についての感想を深掘りしました。以下の思考の流れをもとに、【${taste.name}】テイストで感想原稿を作ってください。
+
+テイストの指示：${taste.instruction}
+
+ファーストインプレッション：「${FI_LABELS[S.firstImpression]}」${comment}
+
+深掘りの記録：
+${hist}`;
+}
+
+// ── START ──
+document.getElementById('type-group').addEventListener('click', e => {
+  const btn = e.target.closest('.tag-btn');
+  if (!btn) return;
+  S.workType = btn.dataset.type;
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.toggle('selected', b.dataset.type === S.workType));
+  // step2の動詞を更新
+  const vMap = { book:'読んで', movie:'観て', news:'読んで', other:'体験して' };
+  document.getElementById('fi-verb').textContent = vMap[S.workType] || '読んで';
+});
+
+document.getElementById('first-group').addEventListener('click', e => {
+  const btn = e.target.closest('.fi-btn');
+  if (!btn) return;
+  S.firstImpression = btn.dataset.fi;
+  document.querySelectorAll('.fi-btn').forEach(b => b.classList.toggle('selected', b.dataset.fi === S.firstImpression));
+});
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  if (!S.firstImpression) {
+    document.getElementById('start-err').innerHTML = '<div class="error-msg">感じたことを選んでください</div>';
+    return;
+  }
+  S.workTitle = document.getElementById('workTitle').value.trim();
+  S.firstComment = document.getElementById('impression').value.trim();
+  S.currentTree = buildTrees()[S.firstImpression];
+  S.currentNodeKey = 'q2';
+  S.history = []; S.selectedChoices = [];
+  showAskingPage(); showPage('asking');
+});
+
+// ── ASKING ──
+document.getElementById('choices-list').addEventListener('click', e => {
+  const btn = e.target.closest('.choice-btn');
+  if (!btn) return;
+  const i = parseInt(btn.dataset.idx);
+  const pos = S.selectedChoices.indexOf(i);
+  if (pos >= 0) S.selectedChoices.splice(pos, 1); else S.selectedChoices.push(i);
+  document.querySelectorAll('#choices-list .choice-btn').forEach(b =>
+    b.classList.toggle('selected', S.selectedChoices.includes(parseInt(b.dataset.idx)))
+  );
+});
+
+document.getElementById('btn-next').addEventListener('click', () => {
+  const free = document.getElementById('free-input').value.trim();
+  const node = S.currentTree[S.currentNodeKey];
+  const chosen = S.selectedChoices.map(i => node.choices[i]);
+  const answerLabel = chosen.map(c => c.label).join('、') + (free ? (chosen.length?'、':'') + free : '');
+  if (!answerLabel) {
+    document.getElementById('ask-err').innerHTML = '<div class="error-msg">選択するか、自分の言葉で入力してください</div>';
+    return;
+  }
+  document.getElementById('ask-err').innerHTML = '';
+  let nextKey = '__end__';
+  if (S.selectedChoices.length > 0) nextKey = node.choices[S.selectedChoices[0]].next;
+  S.history.push({ nodeKey:S.currentNodeKey, q:node.q, choices:node.choices.map(c=>c.label), answer:answerLabel, nextKey });
+  if (nextKey === '__end__' || S.history.length >= S.maxDepth) { showResult(); return; }
+  S.currentNodeKey = nextKey; S.selectedChoices = [];
+  showAskingPage();
+});
+
+document.getElementById('btn-back').addEventListener('click', () => {
+  if (S.history.length === 0) { showPage('start'); return; }
+  const prev = S.history.pop();
+  S.currentNodeKey = prev.nodeKey; S.selectedChoices = [];
+  showAskingPage();
+});
+
+function showAskingPage() {
+  const depth = S.history.length;
+  const node = S.currentTree[S.currentNodeKey];
+  if (!node) { showResult(); return; }
+  document.getElementById('progress-track').innerHTML =
+    Array.from({length:S.maxDepth},(_,i)=>{
+      let c='progress-dot'; if(i<depth)c+=' done'; else if(i===depth)c+=' active';
+      return `<div class="${c}"></div>`;
+    }).join('');
+  document.getElementById('progress-label').textContent = `${depth+1} / ${S.maxDepth}`;
+  const bc = document.getElementById('breadcrumb');
+  if (S.history.length > 0) {
+    bc.style.display='';
+    bc.innerHTML = S.history.map(h=>`<span>▸ ${esc(h.answer)}</span>`).join(' ');
+  } else { bc.style.display='none'; }
+  document.getElementById('depth-label').textContent = `深掘り ${depth+1}`;
+  document.getElementById('question-text').textContent = node.q;
+  document.getElementById('free-input').value = '';
+  document.getElementById('ask-err').innerHTML = '';
+  S.selectedChoices = [];
+  document.getElementById('choices-list').innerHTML =
+    node.choices.map((c,i)=>`<button class="choice-btn" data-idx="${i}">${esc(c.label)}</button>`).join('');
+}
+
+// ── RESULT ──
+function showResult() {
+  S.selectedTaste = '';
+  document.querySelectorAll('.taste-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('btn-open-chatgpt').disabled = true;
+  document.getElementById('prompt-preview').textContent = 'テイストを選ぶとここに表示されます';
+  document.getElementById('result-path').innerHTML =
+    S.history.map((h,i)=>
+      `<div class="tree-node" style="padding-left:${i*14}px">
+        <span style="opacity:0.35">${i===0?'◉':'└'}</span>
+        <span>
+          <span style="font-size:11px;color:var(--text3);">${esc(h.q)}</span><br>
+          <span style="font-weight:500;">${esc(h.answer)}</span>
+        </span>
+      </div>`
+    ).join('');
+  showPage('result');
+}
+
+document.getElementById('taste-group').addEventListener('click', e => {
+  const btn = e.target.closest('.taste-btn');
+  if (!btn) return;
+  S.selectedTaste = btn.dataset.taste;
+  document.querySelectorAll('.taste-btn').forEach(b=>b.classList.toggle('selected', b.dataset.taste===S.selectedTaste));
+  document.getElementById('prompt-preview').textContent = buildPrompt();
+  document.getElementById('btn-open-chatgpt').disabled = false;
+});
+
+document.getElementById('btn-open-chatgpt').addEventListener('click', async () => {
+  const prompt = buildPrompt();
+  if (!prompt) return;
+  try {
+    await navigator.clipboard.writeText(prompt);
+    showToast('コピーしました！ChatGPTを開きます');
+  } catch(e) {
+    showToast('ChatGPTを開きます（手動でコピーしてください）');
+  }
+  setTimeout(() => { window.open('https://chatgpt.com', '_blank'); }, 800);
+});
+
+document.getElementById('btn-copy-prompt').addEventListener('click', async () => {
+  const prompt = buildPrompt();
+  if (!prompt) { showToast('先にテイストを選んでください'); return; }
+  try {
+    await navigator.clipboard.writeText(prompt);
+    showToast('コピーしました');
+  } catch(e) { showToast('コピーに失敗しました'); }
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  Object.assign(S,{workType:'',workTitle:'',firstImpression:'',firstComment:'',currentTree:null,currentNodeKey:'',history:[],selectedChoices:[],selectedTaste:''});
+  document.getElementById('workTitle').value='';
+  document.getElementById('impression').value='';
+  document.getElementById('fi-verb').textContent='読んで';
+  document.querySelectorAll('.tag-btn,.fi-btn,.taste-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('start-err').innerHTML='';
+  showPage('start');
+});
+</script>
+</body>
+</html>
