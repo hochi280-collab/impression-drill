@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>感想の思考ドリル</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fff;--bg2:#f7f6f3;--text:#1a1a1a;--text2:#666;--text3:#999;--border:rgba(0,0,0,.12);--border2:rgba(0,0,0,.22);--accent:#1a1a1a;--r:12px;--rs:8px;--dbg:#fdecea;--dc:#c0392b}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1a1a;--bg2:#242424;--text:#f0ede8;--text2:#aaa;--text3:#666;--border:rgba(255,255,255,.12);--border2:rgba(255,255,255,.25);--accent:#f0ede8;--dbg:#3a1a1a;--dc:#e07070}}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh}
+#app{padding:2rem 1rem 5rem;max-width:600px;margin:0 auto}
+.page{display:none}.page.active{display:block}
+.header{text-align:center;margin-bottom:2.5rem}
+.header h1{font-family:'Noto Serif JP',serif;font-weight:300;font-size:22px;letter-spacing:.1em;margin-bottom:.3rem}
+.header p{font-size:13px;color:var(--text2)}
+.card{background:var(--bg);border:.5px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:1.25rem}
+.slabel{font-size:11px;letter-spacing:.12em;color:var(--text3);margin-bottom:.75rem;text-transform:uppercase}
+.qtext{font-size:17px;font-weight:500;line-height:1.6;margin-bottom:1.25rem}
+.hint{font-size:12px;color:var(--text3);margin-bottom:.5rem}
+.inp{width:100%;border:.5px solid var(--border2);border-radius:var(--rs);padding:.75rem 1rem;font-size:15px;font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);resize:none;outline:none;line-height:1.7;-webkit-appearance:none}
+.inp:focus{border-color:var(--accent)}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.tbtn{padding:6px 14px;font-size:13px;background:var(--bg2);border:.5px solid var(--border);border-radius:20px;font-family:'Zen Kaku Gothic New',sans-serif;color:var(--text);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tbtn.sel{border-color:var(--accent);background:var(--bg);font-weight:500}
+.figrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.fibtn{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:1rem .75rem;font-family:'Zen Kaku Gothic New',sans-serif;color:var(--text);cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.fibtn .em{font-size:22px;display:block;margin-bottom:5px}
+.fibtn .lb{font-size:14px;font-weight:500;display:block}
+.fibtn .sb{font-size:11px;color:var(--text2);display:block;margin-top:3px;line-height:1.4}
+.fibtn.sel{border-color:var(--accent);background:var(--bg)}
+.choices{display:flex;flex-direction:column;gap:7px;margin-bottom:1rem}
+.cbtn{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--rs);padding:.8rem 1rem;font-size:14px;font-family:'Zen Kaku Gothic New',sans-serif;color:var(--text);text-align:left;cursor:pointer;line-height:1.5;-webkit-tap-highlight-color:transparent}
+.cbtn.sel{border-color:var(--accent);background:var(--bg);font-weight:500}
+.arow{display:flex;gap:10px;margin-top:1rem}
+.bp{flex:1;background:var(--accent);color:var(--bg);border:none;border-radius:var(--rs);padding:.8rem 1.25rem;font-size:14px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bp:active{opacity:.75}.bp:disabled{opacity:.35;cursor:not-allowed}
+.bs{background:transparent;color:var(--text2);border:.5px solid var(--border);border-radius:var(--rs);padding:.8rem 1rem;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bs:active{opacity:.7}
+.pwrap{margin-bottom:1.5rem}
+.ptrack{display:flex;gap:4px}
+.pdot{flex:1;height:3px;border-radius:2px;background:var(--border)}
+.pdot.done{background:var(--accent)}.pdot.active{background:var(--text2)}
+.plabel{font-size:11px;color:var(--text3);text-align:right;margin-top:4px}
+.bc{font-size:12px;color:var(--text3);background:var(--bg2);border-radius:var(--rs);padding:.6rem .9rem;margin-bottom:1rem;line-height:1.8;word-break:break-all}
+.tnode{font-size:13px;color:var(--text2);display:flex;gap:8px;padding:4px 0;line-height:1.5}
+.tsgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.tsbtn{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:1rem;cursor:pointer;text-align:left;font-family:'Zen Kaku Gothic New',sans-serif;color:var(--text);-webkit-tap-highlight-color:transparent}
+.tsbtn.sel{border-color:var(--accent);background:var(--bg)}
+.tsbtn .tn{font-size:14px;font-weight:500;margin-bottom:4px}
+.tsbtn .td{font-size:11px;color:var(--text2);line-height:1.5}
+.howto{background:var(--bg2);border-radius:var(--rs);padding:1rem 1.25rem;margin-top:1rem}
+.howto h3{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:.5rem}
+.howto ol{padding-left:1.2rem}
+.howto li{font-size:12px;color:var(--text2);line-height:1.8}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);border-radius:20px;padding:.6rem 1.4rem;font-size:14px;font-family:'Zen Kaku Gothic New',sans-serif;opacity:0;pointer-events:none;transition:opacity .3s;z-index:100;white-space:nowrap}
+.toast.show{opacity:1}
+.err{font-size:13px;color:var(--dc);background:var(--dbg);border-radius:var(--rs);padding:.75rem 1rem;margin-top:.75rem}
+@media(max-width:400px){.figrid,.tsgrid{grid-template-columns:1fr}.fibtn{text-align:left;display:flex;align-items:center;gap:10px;padding:.75rem 1rem}.fibtn .em{font-size:20px;margin-bottom:0;flex-shrink:0}}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="header"><h1>感想の思考ドリル</h1><p>ファーストインプレッションから、あなたの言葉を掘り起こす</p></div>
+
+<!-- START -->
+<div id="pg-start" class="page active">
+<div class="card">
+  <div class="slabel">Step 1 — 作品・テーマ</div>
+  <div class="tagrow" id="tg">
+    <button class="tbtn" data-t="本・小説">本・小説</button>
+    <button class="tbtn" data-t="映画・ドラマ">映画・ドラマ</button>
+    <button class="tbtn" data-t="ニュース・資料">ニュース・資料</button>
+    <button class="tbtn" data-t="その他">その他</button>
+  </div>
+  <input class="inp" id="wt" placeholder="作品名・テーマ（例：映画『ドライブ・マイ・カー』）" style="height:44px">
+</div>
+<div class="card">
+  <div class="slabel">Step 2 — ファーストインプレッション</div>
+  <div class="qtext" style="font-size:16px;margin-bottom:1rem">読んで・観て、最初に感じたのはどれに近い？</div>
+  <div class="figrid" id="fg">
+    <button class="fibtn" data-fi="kyokan"><span class="em">🫂</span><span class="lb">共感した</span><span class="sb">登場人物や状況に「わかる」と感じた</span></button>
+    <button class="fibtn" data-fi="kando"><span class="em">🥹</span><span class="lb">感動した</span><span class="sb">胸が熱くなった・涙が出た</span></button>
+    <button class="fibtn" data-fi="omoshiroi"><span class="em">✨</span><span class="lb">面白かった</span><span class="sb">純粋に楽しめた・夢中になった</span></button>
+    <button class="fibtn" data-fi="kanashimi"><span class="em">🌧️</span><span class="lb">切なかった・悲しかった</span><span class="sb">胸が痛くなった・哀愁を感じた</span></button>
+    <button class="fibtn" data-fi="moya"><span class="em">🌫️</span><span class="lb">もやっとした・怖かった</span><span class="sb">違和感・不安・ぞっとした</span></button>
+    <button class="fibtn" data-fi="wakaranai"><span class="em">🌀</span><span class="lb">よくわからなかった</span><span class="sb">難しい・何を感じたかつかめない</span></button>
+  </div>
+  <div class="hint">追加で一言あれば（任意）</div>
+  <textarea class="inp" id="imp" rows="2" placeholder="例：なんかずっと頭に残ってる　／　主人公が気になった"></textarea>
+  <div class="arow"><button class="bp" id="btn-start">掘り下げる →</button></div>
+  <div id="serr"></div>
+</div>
+</div>
+
+<!-- ASKING -->
+<div id="pg-ask" class="page">
+<div class="pwrap"><div class="ptrack" id="ptrack"></div><div class="plabel" id="plabel"></div></div>
+<div class="card">
+  <div class="bc" id="bc" style="display:none"></div>
+  <div class="slabel" id="dlabel"></div>
+  <div class="qtext" id="qtext"></div>
+  <div class="choices" id="clist"></div>
+  <div class="hint">複数選んでもOK。ピンとこなければ自由に追記を↓</div>
+  <textarea class="inp" id="free" rows="2" placeholder="自分の言葉で追加（任意）"></textarea>
+  <div class="arow">
+    <button class="bs" id="btn-back">← 戻る</button>
+    <button class="bp" id="btn-next">次へ →</button>
+  </div>
+  <div id="aerr"></div>
+</div>
+</div>
+
+<!-- RESULT -->
+<div id="pg-result" class="page">
+<div class="card">
+  <div class="slabel" style="margin-bottom:.75rem">思考の道すじ</div>
+  <div id="rpath"></div>
+</div>
+<div class="card">
+  <div class="slabel" style="margin-bottom:.5rem">原稿のテイストを選んでください</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6">テイストを選んで「Claudeで原稿を作る」を押すと、<br>Claude.aiが開いて内容がコピーされます。貼り付けて送信してください。</p>
+  <div class="tsgrid" id="tsg">
+    <button class="tsbtn" data-ts="casual"><div class="tn">💬 雑談・カジュアル</div><div class="td">友人との会話・読書会向け。自然な口語で</div></button>
+    <button class="tsbtn" data-ts="presentation"><div class="tn">📊 プレゼン・論理的</div><div class="td">職場・授業向け。論点を整理して明確に</div></button>
+    <button class="tsbtn" data-ts="sns"><div class="tn">📱 SNS・キャッチー</div><div class="td">X・Instagram向け。冒頭一文で掴む</div></button>
+    <button class="tsbtn" data-ts="essay"><div class="tn">✍️ エッセイ・文学的</div><div class="td">読書感想文・寄稿向け。丁寧な文体で</div></button>
+  </div>
+  <button class="bp" id="btn-claude" disabled style="margin-bottom:.75rem">Claudeで原稿を作る ↗</button>
+  <button class="bs" id="btn-copy-p" disabled style="width:100%;text-align:center">テキストをコピーして手動で貼り付ける</button>
+  <div class="howto" id="howto" style="display:none">
+    <h3>📋 使い方</h3>
+    <ol>
+      <li>「Claudeで原稿を作る」を押す</li>
+      <li>Claude.ai（ <a href="https://claude.ai" target="_blank" style="color:var(--text)">claude.ai</a> ）が開く</li>
+      <li>テキストボックスに貼り付け（⌘V / Ctrl+V）して送信</li>
+      <li>貼り付けられない場合は「テキストをコピー」ボタンを使う</li>
+    </ol>
+  </div>
+</div>
+<div class="card">
+  <div class="slabel" style="margin-bottom:.5rem">思考の記録を保存</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem;line-height:1.6">深掘りの記録だけをコピーしてメモに保存できます。</p>
+  <button class="bs" id="btn-copy-path" style="width:100%;text-align:center">思考の道すじをコピー</button>
+</div>
+<div class="card" style="padding:1rem 1.25rem">
+  <div class="arow" style="margin-top:0"><button class="bs" id="btn-reset">最初からやり直す</button></div>
+</div>
+</div>
+</div>
+<div class="toast" id="toast">コピーしました</div>
+
+<script>
+const TR={
+kyokan:{
+q2:{q:'「共感した」って、どんな感じに近い？',c:[
+{l:'ずっと感じてたのに言葉がなかったものに、名前をつけてもらった感じ',n:'kyokan_q3a'},
+{l:'見てほしかった場所を、ちゃんと見てくれた感じ',n:'kyokan_q3a'},
+{l:'自分だけが感じていると思っていたことを、知られてしまった感じ',n:'kyokan_q3a'},
+{l:'痛いところを押されたのに、なぜか安心した',n:'kyokan_q3b'},
+{l:'昔の自分に会いに行かされた感じ',n:'kyokan_q3b'},
+{l:'他人の話なのに、自分のことを言われているようで怖かった',n:'kyokan_q3b'},
+]},
+kyokan_q3a:{q:'その「わかってもらえた」感覚——何が一番近い？',c:[
+{l:'ずっと「変なのかな」と思っていた感情が、変じゃなかったと知れた',n:'kyokan_q4a'},
+{l:'誰かに話したいのに話せなかったことを、代わりに言ってくれた',n:'kyokan_q4a'},
+{l:'自分の感情に「そうか、そういう名前だったのか」と思った',n:'kyokan_q4a'},
+{l:'一人じゃなかったと思えた——でも少し悔しかった',n:'kyokan_q4a'},
+{l:'誰かにこれを見せたい、この気持ちをわかってほしいと思った',n:'kyokan_q4a'},
+]},
+kyokan_q3b:{q:'その「痛いのに安心した」感覚——どこから来てると思う？',c:[
+{l:'その登場人物の「ダメな部分」が、自分にもあると気づいてしまった',n:'kyokan_q4b'},
+{l:'自分が見ないようにしていた感情を、正面から描かれた',n:'kyokan_q4b'},
+{l:'昔の自分が、まだ自分の中にいると気づいた',n:'kyokan_q4b'},
+{l:'その人の孤独が、自分の孤独と同じ形をしていた',n:'kyokan_q4b'},
+{l:'「これは自分の話だ」と思った瞬間、目をそらしたくなった',n:'kyokan_q4b'},
+{l:'誰かに「気づかれてしまった」ような感覚があった',n:'kyokan_q4b'},
+]},
+kyokan_q4a:{q:'その「わかってもらえた」感覚——今の自分とも繋がってた？',c:[
+{l:'今、誰かに気づいてほしいのにうまく伝えられていないことがある',n:'kyokan_q5'},
+{l:'最近、自分の感情を後回しにしていた気がする',n:'kyokan_q5'},
+{l:'「自分の気持ち」を言葉にする機会が、ずっとなかった',n:'kyokan_q5'},
+{l:'今は大丈夫。でも昔はそうだった',n:'kyokan_q5'},
+{l:'特定の誰かとの関係の中で、同じ感覚がある',n:'kyokan_q5'},
+]},
+kyokan_q4b:{q:'その「痛み」——自分の中でどれくらい古いもの？',c:[
+{l:'かなり古い——子どもの頃からある感覚だと思う',n:'kyokan_q5'},
+{l:'特定の出来事の後から、ずっとある',n:'kyokan_q5'},
+{l:'最近また出てきた——昔は乗り越えたと思っていた',n:'kyokan_q5'},
+{l:'いつからかわからない。気づいたらあった',n:'kyokan_q5'},
+{l:'今この瞬間に初めて気づいた',n:'kyokan_q5'},
+]},
+kyokan_q5:{q:'その感情、普段はどこに置いてる？',c:[
+{l:'見ないようにして、日常で埋めている',n:'kyokan_q6'},
+{l:'誰かに話したいけど、話せる相手がいない・選べない',n:'kyokan_q6'},
+{l:'自分でも気づかないようにしていた——この作品で初めて出てきた',n:'kyokan_q6'},
+{l:'ずっと一人で抱えていて、それが普通になっている',n:'kyokan_q6'},
+{l:'言葉にしようとすると消えてしまう気がして、言語化を避けていた',n:'kyokan_q6'},
+{l:'誰かに見せたことがある。でも伝わらなかった',n:'kyokan_q6'},
+]},
+kyokan_q6:{q:'この作品と出会ったのは、今の自分にとって何だったと思う？',c:[
+{l:'自分が感じていいんだと、許可をもらえた感じ',n:'__end__'},
+{l:'ずっと後回しにしていた何かに、向き合うタイミングだったかもしれない',n:'__end__'},
+{l:'誰かに話すより、一人でいられる場所が必要だったのかもしれない',n:'__end__'},
+{l:'偶然じゃなかった気がする——今だから刺さったんだと思う',n:'__end__'},
+{l:'わからない。でも確かに、今日の自分には必要だった',n:'__end__'},
+{l:'自分の中に、まだ語られていない物語があると気づいた',n:'__end__'},
+]},
+},
+kando:{
+q2:{q:'感動した——どんな感じに近い？',c:[
+{l:'涙が出た。でも悲しくはなかった',n:'kando_a'},
+{l:'じわじわと後から来た。読み終わってしばらくしてから',n:'kando_b'},
+{l:'胸が熱くなって、誰かに話したくなった',n:'kando_c'},
+{l:'登場人物を応援していたら、自分のことも応援していた',n:'kando_d'},
+{l:'美しいものを見た感覚。映像や言葉そのものが刺さった',n:'kando_e'},
+{l:'何かが報われた感じがした',n:'kando_f'},
+]},
+kando_a:{q:'涙が出たのは、どの瞬間？',c:[
+{l:'誰かが諦めずに立ち上がった場面',n:'kando_naze'},
+{l:'誰かが誰かのために動いた場面',n:'kando_naze'},
+{l:'長い時間が報われた場面',n:'kando_naze'},
+{l:'別れ・終わりの場面',n:'kando_naze'},
+{l:'セリフ一言に全部が込められていた',n:'kando_kotoba'},
+{l:'涙の理由が自分でもわからなかった',n:'kando_naze'},
+]},
+kando_b:{q:'じわじわ来たのは何が理由だと思う？',c:[
+{l:'読んでいる間は気を張っていた',n:'kando_naze'},
+{l:'全部繋がった瞬間が、後から来た',n:'kando_naze'},
+{l:'静かな作品だったのに、深かった',n:'kando_naze'},
+{l:'自分の経験と重なる部分に、後で気づいた',n:'kando_d'},
+{l:'「これは大事な作品だ」という確信が来た',n:'kando_naze'},
+]},
+kando_c:{q:'誰かに話したくなったのはなぜ？',c:[
+{l:'この気持ちを分かち合いたかった',n:'kando_naze'},
+{l:'勧めたい特定の人が頭に浮かんだ',n:'kando_d'},
+{l:'一人で抱えるには大きすぎた',n:'kando_naze'},
+{l:'語り合うことでもっと深まる気がした',n:'kando_naze'},
+{l:'この体験を共有したかった',n:'kando_naze'},
+]},
+kando_d:{q:'その登場人物のどこに自分を重ねた？',c:[
+{l:'諦めない姿——自分も諦めたくないから',n:'kando_ima'},
+{l:'傷ついても誰かを想い続ける姿',n:'kando_ima'},
+{l:'弱さを抱えながら前に進む姿',n:'kando_ima'},
+{l:'報われなくても続ける姿',n:'kando_ima'},
+{l:'なりたい自分、ではなく今の自分',n:'kando_ima'},
+]},
+kando_e:{q:'その美しさ、何が一番印象に残った？',c:[
+{l:'セリフ・言葉の選び方',n:'kando_kotoba'},
+{l:'場面の描写・映像・音',n:'kando_naze'},
+{l:'二人の関係性の描き方',n:'kando_naze'},
+{l:'終わり方・余韻の残し方',n:'kando_naze'},
+{l:'全体を貫いているトーン・空気感',n:'kando_naze'},
+]},
+kando_f:{q:'何が報われた感じがした？',c:[
+{l:'ずっと頑張っていたキャラクターへの気持ち',n:'kando_naze'},
+{l:'自分の中にある「これでよかったんだ」という感覚',n:'kando_d'},
+{l:'信じ続けることへの肯定',n:'kando_ima'},
+{l:'長い時間をかけた積み重ねへの敬意',n:'kando_naze'},
+{l:'うまく言えないが、何かが浮かばれた',n:'kando_naze'},
+]},
+kando_kotoba:{q:'そのセリフ・言葉、なぜ刺さった？',c:[
+{l:'ずっと言いたかったことを言ってくれた',n:'kando_ima'},
+{l:'自分の感情に名前をつけてくれた',n:'kando_ima'},
+{l:'誰かに言ってほしかった言葉だった',n:'kando_ima'},
+{l:'シンプルなのに全部が詰まっていた',n:'kando_ima'},
+{l:'今の自分にだけ刺さるタイミングだった',n:'kando_ima'},
+]},
+kando_naze:{q:'なぜそこまで動かされたと思う？',c:[
+{l:'自分の経験・感情と深く重なっていた',n:'kando_ima'},
+{l:'普段考えないことを考えさせられた',n:'kando_ima'},
+{l:'自分が求めていたものがそこにあった',n:'kando_ima'},
+{l:'表現・言葉の力そのものに打たれた',n:'kando_ima'},
+{l:'理由はわからないが、確かに動かされた',n:'kando_ima'},
+]},
+kando_ima:{q:'この作品を経て、今の自分は？',c:[
+{l:'何か大切なものを思い出せた気がする',n:'__end__'},
+{l:'もう少し自分に優しくできそうな気がした',n:'__end__'},
+{l:'誰かのことを大切にしたいと思った',n:'__end__'},
+{l:'まだ消化中。でも何かが変わった',n:'__end__'},
+{l:'この感覚を忘れないようにしておきたい',n:'__end__'},
+{l:'ただ、よい時間だった。それだけでいい',n:'__end__'},
+]},
+},
+omoshiroi:{
+q2:{q:'どんな「面白さ」だった？',c:[
+{l:'展開が読めなくて止まらなかった',n:'omo_a'},
+{l:'キャラクターが好きすぎた',n:'omo_b'},
+{l:'世界観・設定が最高だった',n:'omo_c'},
+{l:'笑える・テンポが気持ちよかった',n:'omo_d'},
+{l:'知らなかったことを知れた充実感',n:'omo_e'},
+{l:'全部。とにかく好きだった',n:'omo_f'},
+]},
+omo_a:{q:'どの展開が特に刺さった？',c:[
+{l:'伏線が回収された瞬間の快感',n:'omo_naze'},
+{l:'予想の斜め上を行く展開',n:'omo_naze'},
+{l:'信頼していたキャラの意外な一面',n:'omo_naze'},
+{l:'絶望からの逆転',n:'omo_naze'},
+{l:'最後のどんでん返し',n:'omo_naze'},
+]},
+omo_b:{q:'そのキャラのどこが好き？',c:[
+{l:'自分に似ていて、応援したくなる',n:'omo_jibun'},
+{l:'自分にないものを持っている',n:'omo_naze'},
+{l:'弱さも含めて全部好き',n:'omo_naze'},
+{l:'こんな人が実際にいてほしい',n:'omo_naze'},
+{l:'敵・ライバルなのに魅力的すぎる',n:'omo_naze'},
+{l:'成長していく過程が好き',n:'omo_naze'},
+]},
+omo_c:{q:'その世界観、何が一番好き？',c:[
+{l:'ルールや設定の精緻さ・一貫性',n:'omo_naze'},
+{l:'現実とは違う価値観・常識',n:'omo_naze'},
+{l:'その世界に実際に行ってみたい',n:'omo_jibun'},
+{l:'現実をうまく反映・拡張している',n:'omo_naze'},
+{l:'空気感・雰囲気が好みだった',n:'omo_naze'},
+]},
+omo_d:{q:'その心地よさ、どこから来てる？',c:[
+{l:'読んでいる間、日常を忘れられた',n:'omo_jibun'},
+{l:'テンポが自分のリズムに合っていた',n:'omo_naze'},
+{l:'こういうものが今の自分に必要だった',n:'omo_jibun'},
+{l:'安心して楽しめる・裏切られない感じ',n:'omo_naze'},
+{l:'笑いながらも何か大切なものがあった',n:'omo_naze'},
+]},
+omo_e:{q:'何を知れた充実感？',c:[
+{l:'自分の知らない世界・文化・時代',n:'omo_naze'},
+{l:'物事の別の見方・新しい視点',n:'omo_jibun'},
+{l:'今まで気づかなかった自分の感情',n:'omo_jibun'},
+{l:'社会・人間への理解が深まった',n:'omo_naze'},
+{l:'この作品を通じて興味が広がった',n:'omo_naze'},
+]},
+omo_f:{q:'その「全部好き」の中で、一番残ったのは？',c:[
+{l:'あるシーンが頭から離れない',n:'omo_naze'},
+{l:'あるキャラのことをずっと考えている',n:'omo_b'},
+{l:'読後感・余韻が特によかった',n:'omo_jibun'},
+{l:'誰かに勧めたくて仕方ない',n:'omo_naze'},
+{l:'また読み返したい・観返したい',n:'omo_jibun'},
+]},
+omo_naze:{q:'なぜそれがあなたに刺さったと思う？',c:[
+{l:'自分の好みにドンピシャだった',n:'omo_jibun'},
+{l:'今の自分が求めていたものがあった',n:'omo_jibun'},
+{l:'作り手の愛・熱量が伝わってきた',n:'omo_jibun'},
+{l:'理由はわからないが、好きは確か',n:'omo_jibun'},
+{l:'昔好きだったものと繋がっていた',n:'omo_jibun'},
+]},
+omo_jibun:{q:'この作品を楽しんだ自分は、どんな自分だと思う？',c:[
+{l:'こういうものが好きな自分を再確認できた',n:'__end__'},
+{l:'夢中になれるものがある自分はいいなと思った',n:'__end__'},
+{l:'新しい好きを見つけた自分',n:'__end__'},
+{l:'今の自分に合った出会いだった',n:'__end__'},
+{l:'誰かと一緒に楽しみたかった',n:'__end__'},
+]},
+},
+kanashimi:{
+q2:{q:'その切なさ・悲しさ、どこから来てる？',c:[
+{l:'何かが永遠に失われた感じ',n:'kana_a'},
+{l:'届かなかった・伝わらなかった想い',n:'kana_b'},
+{l:'時間は戻らないという感覚',n:'kana_c'},
+{l:'悲しいのに美しいという矛盾',n:'kana_d'},
+{l:'どうにもできなかった無力感',n:'kana_e'},
+{l:'うまく言えないけど、胸が痛い',n:'kana_naze'},
+{l:'好きだったものが変わってしまう寂しさ',n:'kana_c'},
+{l:'誰かへの罪悪感・申し訳なさ',n:'kana_f'},
+]},
+kana_a:{q:'失われたのは何だと思う？',c:[
+{l:'大切な人との時間・関係',n:'kana_jibun'},
+{l:'子ども時代・無邪気さ',n:'kana_kako'},
+{l:'もうひとつの人生・選ばなかった道',n:'kana_jibun'},
+{l:'信じていたもの・価値観',n:'kana_kachi'},
+{l:'自分らしさ・純粋さ',n:'kana_jibun'},
+{l:'取り戻せない記憶',n:'kana_kako'},
+{l:'漠然とした「何か」で言葉にならない',n:'kana_naze'},
+]},
+kana_b:{q:'誰の想いが届かなかったと感じた？',c:[
+{l:'愛情・好意なのに伝わらなかった',n:'kana_naze'},
+{l:'必死さ・真剣さを分かってもらえなかった',n:'kana_naze'},
+{l:'もう会えない誰かへの言葉',n:'kana_jibun'},
+{l:'タイミングが合わなかっただけの悲劇',n:'kana_jibun'},
+{l:'過去の自分に届かない後悔',n:'kana_kako'},
+]},
+kana_c:{q:'時間について、どんな気持ちが湧いた？',c:[
+{l:'あの頃に戻りたい・戻れない辛さ',n:'kana_kako'},
+{l:'今この瞬間も消えていくという感覚',n:'kana_ima'},
+{l:'もっと大切にしていればよかった後悔',n:'kana_kachi'},
+{l:'過ぎ去った時間が急に愛おしくなった',n:'kana_jibun'},
+{l:'未来の自分が今を懐かしむ気がした',n:'kana_ima'},
+]},
+kana_d:{q:'悲しいのに美しいと感じたのは？',c:[
+{l:'儚いものは美しいという感覚',n:'kana_naze'},
+{l:'終わりがあるから輝いて見えた',n:'kana_kachi'},
+{l:'悲劇の中の人の強さや優しさ',n:'kana_naze'},
+{l:'言葉・表現そのものの美しさ',n:'kana_naze'},
+{l:'悲しみを通してしか見えない真実がある',n:'kana_kachi'},
+]},
+kana_e:{q:'その無力感、どこから来てる？',c:[
+{l:'正しいことが報われない現実',n:'kana_kachi'},
+{l:'愛情があっても救えないことがある',n:'kana_kachi'},
+{l:'時間・運命は変えられないという感覚',n:'kana_c'},
+{l:'自分の弱さへの情けなさ',n:'kana_jibun'},
+{l:'傍観者でいることへの自己嫌悪',n:'kana_jibun'},
+]},
+kana_f:{q:'その罪悪感、何に対して？',c:[
+{l:'傷つけてしまった誰か',n:'kana_jibun'},
+{l:'忘れてしまっていた大切な何か',n:'kana_kachi'},
+{l:'何もできなかった・しなかった自分',n:'kana_ima'},
+{l:'恵まれている自分への後ろめたさ',n:'kana_kachi'},
+{l:'うまく言えないけど、ちくっとした',n:'kana_naze'},
+]},
+kana_naze:{q:'なぜそこまで動かされたと思う？',c:[
+{l:'自分の経験・感情と深く重なっていた',n:'kana_jibun'},
+{l:'普段考えないことを考えさせられた',n:'kana_kachi'},
+{l:'誰かへの気持ちが呼び起こされた',n:'kana_jibun'},
+{l:'心の中の何かに触れられた感じがした',n:'kana_jibun'},
+{l:'理由はわからないが、確かに動かされた',n:'kana_kachi'},
+]},
+kana_kako:{q:'過去のどんな自分と重なった？',c:[
+{l:'子どもの頃の自分・あの感覚',n:'kana_kachi'},
+{l:'大きな決断を迫られた頃の自分',n:'kana_kachi'},
+{l:'誰かを傷つけた・傷つけられた経験',n:'kana_kachi'},
+{l:'何かを諦めた・手放した時期',n:'kana_kachi'},
+{l:'一番孤独だった頃の自分',n:'kana_kachi'},
+{l:'必死に生きていた頃の自分',n:'kana_kachi'},
+]},
+kana_jibun:{q:'自分自身と重なるのは？',c:[
+{l:'過去の自分に似ている',n:'kana_kako'},
+{l:'今まさに自分がそうだ',n:'kana_ima'},
+{l:'なりたかった・なれなかった自分',n:'kana_kachi'},
+{l:'誰かへの気持ちが思い浮かんだ',n:'kana_kachi'},
+{l:'忘れていたことを思い出した',n:'kana_kako'},
+]},
+kana_ima:{q:'今の自分のどんな状況と重なってる？',c:[
+{l:'誰かとの関係の中で感じていること',n:'kana_kachi'},
+{l:'何かに向き合えていない自分',n:'kana_kachi'},
+{l:'変わりたいのに変われない自分',n:'kana_kachi'},
+{l:'頑張りすぎている・疲れている自分',n:'kana_kachi'},
+{l:'自分の将来・方向性への不安',n:'kana_kachi'},
+]},
+kana_kachi:{q:'この作品が揺さぶったのは？',c:[
+{l:'大事にしていたはずのものを忘れていた',n:'__end__'},
+{l:'当たり前と思っていた価値観が揺らいだ',n:'__end__'},
+{l:'まだ消化できていない・答えが出ない',n:'__end__'},
+{l:'何かが解放された・軽くなった感じ',n:'__end__'},
+{l:'言葉にならないが、確かに何かが変わった',n:'__end__'},
+{l:'誰かのことを見直す・向き合うきっかけになった',n:'__end__'},
+]},
+},
+moya:{
+q2:{q:'もやもや・怖さ——その正体、どれに近い？',c:[
+{l:'納得できない・腑に落ちない結末',n:'moya_a'},
+{l:'登場人物の誰かへの怒り・苛立ち',n:'moya_b'},
+{l:'社会・世界の構造への疑問',n:'moya_c'},
+{l:'自分も似たようなことをしていないか',n:'moya_d'},
+{l:'正体不明・説明できない何かへの恐怖',n:'moya_e'},
+{l:'人間の心の中にあるものへの怖さ',n:'moya_f'},
+{l:'リアルすぎて明日にでも起きそうな怖さ',n:'moya_g'},
+{l:'感情が複数あって整理できない',n:'moya_naze'},
+]},
+moya_a:{q:'何が受け入れられなかった？',c:[
+{l:'頑張った人が報われなかった',n:'moya_kachi'},
+{l:'理不尽に奪われた・壊された',n:'moya_c'},
+{l:'曖昧な終わり方で宙ぶらりんのまま',n:'moya_naze'},
+{l:'悪が罰せられなかった',n:'moya_c'},
+{l:'もっと違う未来があったはずという悔しさ',n:'moya_d'},
+{l:'現実がそうだからこそ、辛い',n:'moya_kachi'},
+]},
+moya_b:{q:'その怒り、どこに向いてる？',c:[
+{l:'特定の登場人物の言動・選択',n:'moya_naze'},
+{l:'無関心・見て見ぬふりをした人たち',n:'moya_d'},
+{l:'善意のつもりで傷つけた人',n:'moya_kachi'},
+{l:'権力・システム・社会',n:'moya_c'},
+{l:'誰かのせいにできない状況そのもの',n:'moya_naze'},
+{l:'もしかしたら自分にも近い部分がある',n:'moya_d'},
+]},
+moya_c:{q:'その疑問、どんな形で残ってる？',c:[
+{l:'正義・倫理って何だろうという問い',n:'moya_kachi'},
+{l:'自分ならどうするか・できるか',n:'moya_d'},
+{l:'この社会のままでいいのかという不安',n:'moya_kachi'},
+{l:'知らなかった・気づいていなかった自分への驚き',n:'moya_d'},
+{l:'誰かに話して確かめたい・議論したい',n:'__end__'},
+]},
+moya_d:{q:'自分への問い、どんな形？',c:[
+{l:'自分も似たことをしていると気づいた',n:'moya_kachi'},
+{l:'同じ状況で自分はどうするか、怖い',n:'moya_kachi'},
+{l:'見て見ぬふりをしていることがある',n:'moya_kachi'},
+{l:'自分の中の偏見・先入観に気づいた',n:'moya_kachi'},
+{l:'正しいと思っていたことが揺らいだ',n:'moya_kachi'},
+]},
+moya_e:{q:'その「説明できない怖さ」、どんな感じ？',c:[
+{l:'理屈ではなく、感覚・体で感じる怖さ',n:'moya_naze'},
+{l:'怖いのになぜか引き込まれる',n:'moya_naze'},
+{l:'その世界が実在しそうで怖い',n:'moya_g'},
+{l:'人間の理解を超えた何かへの畏怖',n:'moya_kachi'},
+{l:'暗い部分に触れてしまった感じ',n:'moya_d'},
+]},
+moya_f:{q:'人間のどこが怖かった？',c:[
+{l:'善意が生む悪・無意識の加害',n:'moya_kachi'},
+{l:'集団の中で変わっていく個人',n:'moya_c'},
+{l:'正義を信じる人ほど残酷になれる',n:'moya_kachi'},
+{l:'自分の中にも同じものがあると感じた',n:'moya_d'},
+{l:'愛情と支配・執着の紙一重',n:'moya_naze'},
+]},
+moya_g:{q:'どのくらいリアルに感じた？',c:[
+{l:'明日にでも起こりそうで息が詰まった',n:'moya_kachi'},
+{l:'すでに起きていることだと気づいた',n:'moya_c'},
+{l:'誰でもこうなりうるという普遍性が怖い',n:'moya_kachi'},
+{l:'気づかないふりをしていたことだと思った',n:'moya_d'},
+{l:'フィクションと現実の境界が消えた瞬間があった',n:'moya_naze'},
+]},
+moya_naze:{q:'なぜそこまで動かされたと思う？',c:[
+{l:'自分の経験・感情と深く重なっていた',n:'moya_d'},
+{l:'普段考えないことを考えさせられた',n:'moya_kachi'},
+{l:'自分が求めていたものがそこにあった',n:'moya_kachi'},
+{l:'理由はわからないが、確かに動かされた',n:'moya_kachi'},
+]},
+moya_kachi:{q:'この作品が揺さぶったのは？',c:[
+{l:'当たり前と思っていた価値観が揺らいだ',n:'__end__'},
+{l:'自分の見方・感じ方が変わった気がする',n:'__end__'},
+{l:'まだ消化できていない・答えが出ない',n:'__end__'},
+{l:'新しい問いが生まれた',n:'__end__'},
+{l:'言葉にならないが、確かに何かが変わった',n:'__end__'},
+{l:'誰かのことを見直す・向き合うきっかけになった',n:'__end__'},
+]},
+},
+wakaranai:{
+q2:{q:'「わからなかった」って、どんな感じ？',c:[
+{l:'難しくて内容がつかめなかった',n:'waka_a'},
+{l:'ストーリーはわかったが、感情が動かなかった',n:'waka_b'},
+{l:'何かを感じているのに言葉にならない',n:'waka_c'},
+{l:'好きなのか嫌いなのかわからない',n:'waka_d'},
+{l:'もやもやが残っているが、何かはわからない',n:'waka_e'},
+{l:'今の自分には早すぎた・刺さらなかった',n:'waka_f'},
+]},
+waka_a:{q:'何が難しかった？',c:[
+{l:'内容・テーマが複雑すぎた',n:'waka_z'},
+{l:'前提知識がなかった',n:'waka_z'},
+{l:'登場人物が多くて追えなかった',n:'waka_z'},
+{l:'作者の言いたいことがつかめなかった',n:'waka_z'},
+{l:'全部わかってはいるが、深く感じられなかった',n:'waka_b'},
+]},
+waka_b:{q:'感情が動かなかったのはなぜだと思う？',c:[
+{l:'今の自分の状況と遠すぎた',n:'waka_z'},
+{l:'登場人物に共感できなかった',n:'waka_z'},
+{l:'疲れていて、受け取れなかった',n:'waka_f'},
+{l:'期待が高すぎた・ギャップがあった',n:'waka_z'},
+{l:'実は少し感じていたが、認めたくない気持ちがある',n:'waka_c'},
+]},
+waka_c:{q:'言葉にならないけど、何かある感じ——どれに近い？',c:[
+{l:'読後感として、何かが残っている',n:'waka_g'},
+{l:'特定のシーンが頭に残っている',n:'waka_g'},
+{l:'感情ではなく、何かを「知った」感じ',n:'waka_z'},
+{l:'時間が経ったら意味がわかるかもしれない',n:'waka_f'},
+{l:'誰かと話してみたら何か出てくる気がする',n:'waka_z'},
+]},
+waka_d:{q:'その「好きかどうかわからない」感覚——？',c:[
+{l:'面白いのに後味が悪い',n:'waka_g'},
+{l:'嫌いではないが好きとも言えない',n:'waka_z'},
+{l:'苦手なのに引き込まれた',n:'waka_g'},
+{l:'好きな人の気持ちはわかる気がする',n:'waka_z'},
+{l:'評価はできないが、何かは感じた',n:'waka_c'},
+]},
+waka_e:{q:'そのもやもや、どこから来てると思う？',c:[
+{l:'結論が出なかった・宙ぶらりんのまま',n:'waka_z'},
+{l:'自分の何かに触れたような気がする',n:'waka_c'},
+{l:'問いを投げかけられた感じ',n:'waka_z'},
+{l:'整理する時間が必要な感じ',n:'waka_f'},
+]},
+waka_f:{q:'「今の自分には早い・遅い」と感じたなら？',c:[
+{l:'数年後に読んだら全然違う感じ方をしそう',n:'waka_z'},
+{l:'過去の自分なら刺さっていたかもしれない',n:'waka_z'},
+{l:'今の自分には受け取る準備がなかった',n:'waka_z'},
+{l:'タイミングが全てだと思った',n:'waka_z'},
+]},
+waka_g:{q:'残っているもの——どんな形で残ってる？',c:[
+{l:'特定の場面・画・言葉',n:'waka_z'},
+{l:'漠然とした空気感・雰囲気',n:'waka_z'},
+{l:'自分への問いかけ',n:'waka_z'},
+{l:'誰かの顔・自分の過去',n:'waka_z'},
+{l:'何かが動いた感覚だけ',n:'waka_z'},
+]},
+waka_z:{q:'この体験から、次に何かしたい？',c:[
+{l:'同じ作者の別作品を読みたい・観たい',n:'__end__'},
+{l:'誰かに感想を聞いてみたい',n:'__end__'},
+{l:'もう一度読み返したい',n:'__end__'},
+{l:'少し時間をおいてから考えたい',n:'__end__'},
+{l:'関連する作品・解説を探したい',n:'__end__'},
+{l:'まずこの感覚をどこかに書き留めたい',n:'__end__'},
+]},
+},
+};
+
+const TS={
+casual:{name:'雑談・カジュアル',ins:'友人との読書会・雑談で話すような口語文。「〜だった」「〜って感じで」など自然な話し言葉。感情をそのまま素直に。200〜250字程度。'},
+presentation:{name:'プレゼン・論理的',ins:'職場や授業の発表向け。「第一に〜、第二に〜」「この作品から読み取れるのは〜」など論理的な構成。結論を明確に。400〜500字。'},
+sns:{name:'SNS・キャッチー',ins:'X（旧Twitter）やInstagramのキャプション向け。冒頭一文で掴む。改行多め。ハッシュタグ2〜3個付き。150字以内のメイン文。'},
+essay:{name:'エッセイ・文学的',ins:'読書感想文や寄稿向け。情景描写や内省を丁寧な文語体で。比喩や余白を大切に。500〜600字。'},
+};
+const FIL={kyokan:'共感した',kando:'感動した',omoshiroi:'面白かった',kanashimi:'切なかった・悲しかった',moya:'もやっとした・怖かった',wakaranai:'よくわからなかった'};
+
+const S={wt:'',wti:'',fi:'',fc:'',tree:null,nk:'',hist:[],sel:[],max:12,taste:''};
+
+function pg(n){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='pg-'+n));window.scrollTo(0,0)}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function toast(m){const t=document.getElementById('toast');t.textContent=m||'コピーしました';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+
+document.getElementById('tg').addEventListener('click',e=>{
+  const b=e.target.closest('.tbtn');if(!b)return;
+  S.wt=b.dataset.t;
+  document.querySelectorAll('.tbtn').forEach(x=>x.classList.toggle('sel',x.dataset.t===S.wt));
+});
+document.getElementById('fg').addEventListener('click',e=>{
+  const b=e.target.closest('.fibtn');if(!b)return;
+  S.fi=b.dataset.fi;
+  document.querySelectorAll('.fibtn').forEach(x=>x.classList.toggle('sel',x.dataset.fi===S.fi));
+  document.getElementById('serr').innerHTML='';
+});
+document.getElementById('btn-start').addEventListener('click',()=>{
+  if(!S.fi){document.getElementById('serr').innerHTML='<div class="err">感じたことを選んでください</div>';return}
+  S.wti=document.getElementById('wt').value.trim();
+  S.fc=document.getElementById('imp').value.trim();
+  S.tree=TR[S.fi];S.nk='q2';S.hist=[];S.sel=[];
+  askPg();pg('ask');
+});
+
+document.getElementById('clist').addEventListener('click',e=>{
+  const b=e.target.closest('.cbtn');if(!b)return;
+  const i=parseInt(b.dataset.i);const p=S.sel.indexOf(i);
+  if(p>=0)S.sel.splice(p,1);else S.sel.push(i);
+  document.querySelectorAll('.cbtn').forEach(x=>x.classList.toggle('sel',S.sel.includes(parseInt(x.dataset.i))));
+});
+document.getElementById('btn-next').addEventListener('click',()=>{
+  const fr=document.getElementById('free').value.trim();
+  const nd=S.tree[S.nk];
+  const ch=S.sel.map(i=>nd.c[i]);
+  const ans=ch.map(x=>x.l).join('、')+(fr?(ch.length?'、':'')+fr:'');
+  if(!ans){document.getElementById('aerr').innerHTML='<div class="err">選択するか、自分の言葉で入力してください</div>';return}
+  document.getElementById('aerr').innerHTML='';
+  let nxt='__end__';if(S.sel.length>0)nxt=nd.c[S.sel[0]].n;
+  S.hist.push({nk:S.nk,q:nd.q,cl:nd.c.map(x=>x.l),ans,nxt});
+  if(nxt==='__end__'||S.hist.length>=S.max){showResult();return}
+  S.nk=nxt;S.sel=[];askPg();
+});
+document.getElementById('btn-back').addEventListener('click',()=>{
+  if(S.hist.length===0){pg('start');return}
+  const pv=S.hist.pop();S.nk=pv.nk;S.sel=[];askPg();
+});
+
+function askPg(){
+  const d=S.hist.length;const nd=S.tree[S.nk];if(!nd){showResult();return}
+  document.getElementById('ptrack').innerHTML=Array.from({length:S.max},(_,i)=>{let c='pdot';if(i<d)c+=' done';else if(i===d)c+=' active';return`<div class="${c}"></div>`}).join('');
+  document.getElementById('plabel').textContent=`${d+1} / ${S.max}`;
+  const bc=document.getElementById('bc');
+  if(S.hist.length>0){bc.style.display='';bc.innerHTML=S.hist.map(h=>`<span>▸ ${esc(h.ans)}</span>`).join(' ')}else bc.style.display='none';
+  document.getElementById('dlabel').textContent=`深掘り ${d+1}`;
+  document.getElementById('qtext').textContent=nd.q;
+  document.getElementById('free').value='';document.getElementById('aerr').innerHTML='';S.sel=[];
+  document.getElementById('clist').innerHTML=nd.c.map((c,i)=>`<button class="cbtn" data-i="${i}">${esc(c.l)}</button>`).join('');
+}
+
+function buildPrompt(ts){
+  const t=TS[ts];const w=S.wti?`「${S.wti}」`:'この作品';const cm=S.fc?`（補足：${S.fc}）`:'';
+  const h=S.hist.map((x,i)=>`${i+1}. ${x.q} → ${x.ans}`).join('\n');
+  return`${w}についての感想を深掘りしました。以下の思考の流れをもとに、【${t.name}】テイストで感想原稿を作ってください。\n\nテイストの指示：${t.ins}\n\nファーストインプレッション：「${FIL[S.fi]}」${cm}\n\n深掘りの記録：\n${h}`;
+}
+function buildPath(){
+  const w=S.wti?`【${S.wti}】`:'【作品名未入力】';
+  return`${w} 感想の思考ドリル\n\nファーストインプレッション：${FIL[S.fi]||''}\n\n${S.hist.map((h,i)=>`${i+1}. ${h.q}\n   → ${h.ans}`).join('\n')}`;
+}
+
+function showResult(){
+  S.taste='';
+  document.querySelectorAll('.tsbtn').forEach(b=>b.classList.remove('sel'));
+  document.getElementById('btn-claude').disabled=true;
+  document.getElementById('btn-copy-p').disabled=true;
+  document.getElementById('howto').style.display='none';
+  document.getElementById('rpath').innerHTML=S.hist.map((h,i)=>
+    `<div class="tnode" style="padding-left:${i*14}px"><span style="opacity:.35">${i===0?'◉':'└'}</span><span><span style="font-size:11px;color:var(--text3)">${esc(h.q)}</span><br><span style="font-weight:500">${esc(h.ans)}</span></span></div>`
+  ).join('');
+  pg('result');
+}
+
+document.getElementById('tsg').addEventListener('click',e=>{
+  const b=e.target.closest('.tsbtn');if(!b)return;
+  S.taste=b.dataset.ts;
+  document.querySelectorAll('.tsbtn').forEach(x=>x.classList.toggle('sel',x.dataset.ts===S.taste));
+  document.getElementById('btn-claude').disabled=false;
+  document.getElementById('btn-copy-p').disabled=false;
+  document.getElementById('howto').style.display='block';
+});
+
+document.getElementById('btn-claude').addEventListener('click',()=>{
+  if(!S.taste)return;
+  const p=buildPrompt(S.taste);
+  navigator.clipboard.writeText(p).then(()=>{
+    window.open('https://claude.ai/new','_blank');
+    toast('テキストをコピーしました！Claude.aiに貼り付けて送信してください');
+  }).catch(()=>{window.open('https://claude.ai/new','_blank')});
+});
+document.getElementById('btn-copy-p').addEventListener('click',()=>{
+  if(!S.taste)return;
+  navigator.clipboard.writeText(buildPrompt(S.taste)).then(()=>toast('コピーしました'));
+});
+document.getElementById('btn-copy-path').addEventListener('click',()=>{
+  navigator.clipboard.writeText(buildPath()).then(()=>toast('コピーしました'));
+});
+document.getElementById('btn-reset').addEventListener('click',()=>{
+  Object.assign(S,{wt:'',wti:'',fi:'',fc:'',tree:null,nk:'',hist:[],sel:[],taste:''});
+  document.getElementById('wt').value='';document.getElementById('imp').value='';
+  document.getElementById('serr').innerHTML='';
+  document.querySelectorAll('.tbtn,.fibtn,.tsbtn').forEach(b=>b.classList.remove('sel'));
+  pg('start');
+});
+</script>
+</body>
+</html>
