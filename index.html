@@ -3,91 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ede0f7">
 <title>名前のない言葉</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkYmIwZjUiLz48c3RvcCBvZmZzZXQ9IjM1JSIgc3RvcC1jb2xvcj0iI2E4ZDhmOCIvPjxzdG9wIG9mZnNldD0iNjUlIiBzdG9wLWNvbG9yPSIjZmRjOGE4Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYThlOGM4Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImJnMiIgeDE9IjEwMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwYThkOCIgc3RvcC1vcGFjaXR5PSIwLjU1Ii8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiNhOGQwZjUiIHN0b3Atb3BhY2l0eT0iMC4zNSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y1ZTBhOCIgc3RvcC1vcGFjaXR5PSIwLjUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ1cmwoI2JnKSIvPjxyZWN0IHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIGZpbGw9InVybCgjYmcyKSIvPjxlbGxpcHNlIGN4PSI1MTIiIGN5PSI0NzAiIHJ4PSIzNDAiIHJ5PSIyMTAiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjk0Ii8+PGVsbGlwc2UgY3g9IjUxMiIgY3k9IjQ3MCIgcng9IjM0MCIgcnk9IjIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxMiIvPjxwb2x5Z29uIHBvaW50cz0iNDIwLDY3MiA0OTAsNjQ0IDQzMiw3NjAiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjk0Ii8+PHJlY3QgeD0iMzEwIiB5PSIzOTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAiIHJ4PSIxNSIgZmlsbD0iI2NjOWVlOCIgb3BhY2l0eT0iMC42Ii8+PHJlY3QgeD0iMzEwIiB5PSI0NDUiIHdpZHRoPSIzNzAiIGhlaWdodD0iMzAiIHJ4PSIxNSIgZmlsbD0iIzg4YmFmMCIgb3BhY2l0eT0iMC42Ii8+PHJlY3QgeD0iMzEwIiB5PSI1MDAiIHdpZHRoPSIxNjAiIGhlaWdodD0iMzAiIHJ4PSIxNSIgZmlsbD0iI2YwYjg4OCIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="名前のない言葉">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkYmIwZjUiLz48c3RvcCBvZmZzZXQ9IjM1JSIgc3RvcC1jb2xvcj0iI2E4ZDhmOCIvPjxzdG9wIG9mZnNldD0iNjUlIiBzdG9wLWNvbG9yPSIjZmRjOGE4Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYThlOGM4Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImJnMiIgeDE9IjEwMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwYThkOCIgc3RvcC1vcGFjaXR5PSIwLjU1Ii8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiNhOGQwZjUiIHN0b3Atb3BhY2l0eT0iMC4zNSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y1ZTBhOCIgc3RvcC1vcGFjaXR5PSIwLjUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJ1cmwoI2JnKSIvPjxyZWN0IHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIGZpbGw9InVybCgjYmcyKSIvPjxlbGxpcHNlIGN4PSI1MTIiIGN5PSI0NzAiIHJ4PSIzNDAiIHJ5PSIyMTAiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjk0Ii8+PHBvbHlnb24gcG9pbnRzPSI0MjAsNjcyIDQ5MCw2NDQgNDMyLDc2MCIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOTQiLz48cmVjdCB4PSIzMTAiIHk9IjM5MCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMCIgcng9IjE1IiBmaWxsPSIjY2M5ZWU4IiBvcGFjaXR5PSIwLjYiLz48cmVjdCB4PSIzMTAiIHk9IjQ0NSIgd2lkdGg9IjM3MCIgaGVpZ2h0PSIzMCIgcng9IjE1IiBmaWxsPSIjODhiYWYwIiBvcGFjaXR5PSIwLjYiLz48cmVjdCB4PSIzMTAiIHk9IjUwMCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIzMCIgcng9IjE1IiBmaWxsPSIjZjBiODg4IiBvcGFjaXR5PSIwLjYiLz48L3N2Zz4=">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #ffffff; --bg2: #f7f6f3; --bg3: #f0ede8;
-    --text: #1a1a1a; --text2: #666; --text3: #999;
-    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.22);
-    --accent: #1a1a1a;
-    --radius: 12px; --radius-sm: 8px;
+    --bg: rgba(255,255,255,0.75);
+    --bg2: rgba(255,255,255,0.55);
+    --text: #2a1f3d;
+    --text2: #5a4f6d;
+    --text3: #9a8fb0;
+    --border: rgba(100,80,160,0.13);
+    --border2: rgba(100,80,160,0.25);
+    --accent: #3d2f6a;
+    --radius: 14px; --radius-sm: 9px;
     --danger-bg: #fdecea; --danger: #c0392b;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1a1a1a; --bg2: #242424; --bg3: #2e2e2e;
-      --text: #f0ede8; --text2: #aaa; --text3: #666;
-      --border: rgba(255,255,255,0.12); --border2: rgba(255,255,255,0.25);
-      --accent: #f0ede8;
-      --danger-bg: #3a1a1a; --danger: #e07070;
-    }
-  }
   html { -webkit-text-size-adjust: 100%; }
-  body { font-family: 'Zen Kaku Gothic New', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--text);
+    min-height: 100dvh;
+    background: linear-gradient(135deg, #ede0f7 0%, #d8edfb 35%, #fde8d8 65%, #d8f3e8 100%);
+    background-attachment: fixed;
+  }
   #app { padding: 2rem 1rem 4rem; max-width: 600px; margin: 0 auto; }
   .page { display: none; }
   .page.active { display: block; }
 
-  /* ── Header ── */
-  .header { text-align: center; margin-bottom: 2.5rem; }
-  .header h1 { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 26px; letter-spacing: 0.15em; margin-bottom: 0.4rem; }
+  .header { text-align: center; margin-bottom: 2.5rem; padding-top: 0.5rem; }
+  .header h1 { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 26px; letter-spacing: 0.15em; margin-bottom: 0.4rem; color: var(--accent); }
   .header p { font-size: 13px; color: var(--text2); letter-spacing: 0.05em; }
 
-  /* ── Card ── */
-  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; }
+  .card { background: var(--bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 2px 16px rgba(120,100,200,0.07); }
   .step-label { font-size: 11px; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 0.75rem; text-transform: uppercase; }
   .question-text { font-size: 17px; font-weight: 500; line-height: 1.6; margin-bottom: 1.25rem; }
   .hint { font-size: 12px; color: var(--text3); margin-bottom: 0.5rem; }
 
-  /* ── Inputs ── */
   .input-area {
     width: 100%; border: 0.5px solid var(--border2); border-radius: var(--radius-sm);
     padding: 0.75rem 1rem; font-size: 15px; font-family: 'Zen Kaku Gothic New', sans-serif;
-    background: var(--bg); color: var(--text); resize: none; outline: none; line-height: 1.7;
+    background: rgba(255,255,255,0.7); color: var(--text); resize: none; outline: none; line-height: 1.7;
     -webkit-appearance: none;
   }
-  .input-area:focus { border-color: var(--accent); }
+  .input-area:focus { border-color: var(--accent); background: rgba(255,255,255,0.9); }
 
-  /* ── Tag buttons ── */
   .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
   .tag-btn {
-    padding: 6px 14px; font-size: 13px; background: var(--bg2);
+    padding: 6px 14px; font-size: 13px; background: rgba(255,255,255,0.6);
     border: 0.5px solid var(--border); border-radius: 20px;
-    font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text); cursor: pointer;
+    font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text2); cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .tag-btn.selected { border-color: var(--accent); background: var(--bg); font-weight: 500; }
+  .tag-btn.selected { border-color: var(--accent); background: rgba(255,255,255,0.9); color: var(--accent); font-weight: 500; }
 
-  /* ── First impression grid ── */
   .fi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
   .fi-btn {
-    background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius);
+    background: rgba(255,255,255,0.55); border: 0.5px solid var(--border); border-radius: var(--radius);
     padding: 1rem 0.75rem; font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text);
     cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent;
   }
   .fi-btn .fi-emoji { font-size: 22px; display: block; margin-bottom: 5px; }
   .fi-btn .fi-label { font-size: 14px; font-weight: 500; display: block; }
   .fi-btn .fi-sub { font-size: 11px; color: var(--text2); display: block; margin-top: 3px; line-height: 1.4; }
-  .fi-btn.selected { border-color: var(--accent); background: var(--bg); }
+  .fi-btn.selected { border-color: var(--accent); background: rgba(255,255,255,0.9); }
 
-  /* ── Choices ── */
   .choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 1rem; }
   .choice-btn {
-    background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.55); border: 0.5px solid var(--border); border-radius: var(--radius-sm);
     padding: 0.8rem 1rem; font-size: 14px; font-family: 'Zen Kaku Gothic New', sans-serif;
     color: var(--text); text-align: left; cursor: pointer; line-height: 1.5;
     -webkit-tap-highlight-color: transparent;
   }
-  .choice-btn.selected { border-color: var(--accent); background: var(--bg); font-weight: 500; }
+  .choice-btn.selected { border-color: var(--accent); background: rgba(255,255,255,0.9); font-weight: 500; color: var(--accent); }
 
-  /* ── Buttons ── */
   .action-row { display: flex; gap: 10px; margin-top: 1rem; }
   .btn-primary {
-    flex: 1; background: var(--accent); color: var(--bg); border: none;
+    flex: 1; background: var(--accent); color: white; border: none;
     border-radius: var(--radius-sm); padding: 0.75rem 1.25rem; font-size: 14px;
     font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 500; cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -95,63 +94,71 @@
   .btn-primary:active { opacity: 0.75; }
   .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn-secondary {
-    background: transparent; color: var(--text2); border: 0.5px solid var(--border);
+    background: rgba(255,255,255,0.6); color: var(--text2); border: 0.5px solid var(--border);
     border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 13px;
     font-family: 'Zen Kaku Gothic New', sans-serif; cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ── Progress ── */
   .progress-wrap { margin-bottom: 1.5rem; }
   .progress-track { display: flex; gap: 4px; }
-  .progress-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border); }
+  .progress-dot { flex: 1; height: 3px; border-radius: 2px; background: rgba(120,100,200,0.15); }
   .progress-dot.done { background: var(--accent); }
   .progress-dot.active { background: var(--text2); }
   .progress-label { font-size: 11px; color: var(--text3); text-align: right; margin-top: 4px; }
 
-  /* ── Breadcrumb ── */
   .breadcrumb {
-    font-size: 12px; color: var(--text3); background: var(--bg2);
+    font-size: 12px; color: var(--text3); background: rgba(255,255,255,0.5);
     border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem;
     line-height: 1.8; word-break: break-all;
   }
 
-  /* ── Taste grid ── */
   .taste-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
   .taste-btn {
-    background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius);
+    background: rgba(255,255,255,0.55); border: 0.5px solid var(--border); border-radius: var(--radius);
     padding: 1rem; cursor: pointer; text-align: left;
     font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text);
     -webkit-tap-highlight-color: transparent;
   }
-  .taste-btn.selected { border-color: var(--accent); background: var(--bg); }
+  .taste-btn.selected { border-color: var(--accent); background: rgba(255,255,255,0.9); }
   .taste-btn .taste-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
   .taste-btn .taste-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
 
-  /* ── Result ── */
   .tree-node { font-size: 13px; color: var(--text2); display: flex; gap: 8px; padding: 4px 0; line-height: 1.5; }
   .prompt-box {
-    background: var(--bg2); border-radius: var(--radius-sm); padding: 1rem;
+    background: rgba(255,255,255,0.55); border-radius: var(--radius-sm); padding: 1rem;
     font-size: 13px; line-height: 1.8; color: var(--text2); white-space: pre-wrap;
     margin-bottom: 1rem; max-height: 240px; overflow-y: auto;
     border: 0.5px solid var(--border);
   }
 
-  /* ── Guide ── */
   .guide-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
   .guide-step { display: flex; gap: 12px; align-items: flex-start; }
   .guide-num {
-    width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--bg);
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: white;
     font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; margin-top: 1px;
   }
   .guide-text { font-size: 14px; line-height: 1.6; color: var(--text2); }
   .guide-text strong { color: var(--text); font-weight: 500; }
 
-  /* ── Toast ── */
+  /* ファイルアップロード */
+  .upload-area {
+    border: 1.5px dashed var(--border2); border-radius: var(--radius-sm);
+    padding: 1.25rem; text-align: center; cursor: pointer;
+    background: rgba(255,255,255,0.4); transition: background 0.2s;
+    margin-bottom: 0.5rem;
+  }
+  .upload-area:hover { background: rgba(255,255,255,0.65); }
+  .upload-area.has-file { border-style: solid; border-color: var(--accent); background: rgba(255,255,255,0.7); }
+  .upload-icon { font-size: 24px; margin-bottom: 6px; }
+  .upload-label { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .upload-filename { font-size: 13px; color: var(--accent); font-weight: 500; margin-top: 4px; }
+  #file-input { display: none; }
+
   .copy-toast {
     position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-    background: var(--accent); color: var(--bg); border-radius: 20px;
+    background: var(--accent); color: white; border-radius: 20px;
     padding: 0.6rem 1.4rem; font-size: 14px; font-family: 'Zen Kaku Gothic New', sans-serif;
     opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100; white-space: nowrap;
   }
@@ -188,16 +195,29 @@
       </div>
       <input class="input-area" id="workTitle" placeholder="作品名・テーマ（例：映画『ドライブ・マイ・カー』）" style="height:44px;">
     </div>
+
+    <div class="card">
+      <div class="step-label">資料のアップロード（任意）</div>
+      <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+        <div class="upload-icon">📎</div>
+        <div class="upload-label">仕事の資料・PDFなどをアップロード<br><span style="font-size:11px;">原稿生成の参考にします（PDF・画像対応）</span></div>
+        <div class="upload-filename" id="upload-filename"></div>
+      </div>
+      <input type="file" id="file-input" accept=".pdf,image/*">
+    </div>
+
     <div class="card">
       <div class="step-label">Step 2 — ファーストインプレッション</div>
       <div class="question-text" style="font-size:16px;margin-bottom:1rem;"><span id="fi-verb">読んで</span>・観て、最初に感じたのはどれに近い？</div>
       <div class="fi-grid" id="first-group">
-        <button class="fi-btn" data-fi="kyokan"><span class="fi-emoji">🫂</span><span class="fi-label">共感した</span><span class="fi-sub">登場人物や状況に「わかる」と感じた</span></button>
-        <button class="fi-btn" data-fi="kando"><span class="fi-emoji">🥹</span><span class="fi-label">感動した</span><span class="fi-sub">胸が熱くなった・涙が出た</span></button>
-        <button class="fi-btn" data-fi="omoshiroi"><span class="fi-emoji">✨</span><span class="fi-label">面白かった</span><span class="fi-sub">純粋に楽しめた・夢中になった</span></button>
+        <button class="fi-btn" data-fi="kyokan"><span class="fi-emoji">🌍</span><span class="fi-label">共感した</span><span class="fi-sub">登場人物や状況に「わかる」と感じた</span></button>
+        <button class="fi-btn" data-fi="kando"><span class="fi-emoji">🌈</span><span class="fi-label">感動した</span><span class="fi-sub">胸が熱くなった・涙が出た</span></button>
+        <button class="fi-btn" data-fi="omoshiroi"><span class="fi-emoji">☀️</span><span class="fi-label">面白かった</span><span class="fi-sub">純粋に楽しめた・夢中になった</span></button>
         <button class="fi-btn" data-fi="kanashimi"><span class="fi-emoji">🌧️</span><span class="fi-label">切なかった・悲しかった</span><span class="fi-sub">胸が痛くなった・哀愁を感じた</span></button>
-        <button class="fi-btn" data-fi="moya"><span class="fi-emoji">🌫️</span><span class="fi-label">もやっとした・怖かった</span><span class="fi-sub">違和感・不安・ぞっとした</span></button>
+        <button class="fi-btn" data-fi="moya"><span class="fi-emoji">☁️</span><span class="fi-label">もやっとした・怖かった</span><span class="fi-sub">違和感・不安・ぞっとした</span></button>
         <button class="fi-btn" data-fi="wakaranai"><span class="fi-emoji">🌀</span><span class="fi-label">よくわからなかった</span><span class="fi-sub">難しい・何を感じたかつかめない</span></button>
+        <button class="fi-btn" data-fi="manabi"><span class="fi-emoji">⭐</span><span class="fi-label">学びになった</span><span class="fi-sub">知識・視点・スキルが得られた</span></button>
+        <button class="fi-btn" data-fi="kangaeru"><span class="fi-emoji">🌙</span><span class="fi-label">考えさせられた</span><span class="fi-sub">価値観や社会について問われた</span></button>
       </div>
       <div class="hint">追加で一言あれば（任意）</div>
       <textarea class="input-area" id="impression" rows="2" placeholder="例：なんかずっと頭に残ってる　／　主人公が気になった"></textarea>
@@ -239,14 +259,13 @@
         <button class="taste-btn" data-taste="casual"><div class="taste-name">💬 雑談・カジュアル</div><div class="taste-desc">友人との会話・読書会向け。自然な口語で</div></button>
         <button class="taste-btn" data-taste="presentation"><div class="taste-name">📊 プレゼン・論理的</div><div class="taste-desc">職場・授業向け。論点を整理して明確に</div></button>
         <button class="taste-btn" data-taste="sns"><div class="taste-name">📱 SNS・キャッチー</div><div class="taste-desc">X・Instagram向け。冒頭一文で掴む</div></button>
-        <button class="taste-btn" data-taste="essay"><div class="taste-name">✍️ エッセイ・文学的</div><div class="taste-desc">読書感想文・寄稿向け。丁寧な文体で</div></button>
+        <button class="taste-btn" data-taste="essay"><div class="taste-name">✍️ エッセイ・文学的</div><div class="taste-desc">読書感想文・寄稿向け。現代的な文体で</div></button>
       </div>
       <div style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.7;">
         テイストを選んだら、下のボタンでChatGPTが開きます。<br>内容が自動でコピーされるので、そのまま貼り付けてください。
       </div>
       <button class="btn-primary" id="btn-open-chatgpt" disabled>ChatGPTで原稿を作る ↗</button>
     </div>
-
     <div class="card">
       <div class="step-label" style="margin-bottom:1rem;">原稿の作り方</div>
       <div class="guide-steps">
@@ -260,7 +279,6 @@
         <button class="btn-secondary" id="btn-copy-prompt" style="width:100%;">プロンプトをコピー</button>
       </div>
     </div>
-
     <div class="card" style="padding:1rem 1.25rem;">
       <div class="action-row" style="margin-top:0;">
         <button class="btn-secondary" id="btn-reset">最初からやり直す</button>
@@ -268,25 +286,17 @@
     </div>
   </div>
 </div>
-
 <div class="copy-toast" id="copy-toast">コピーしました</div>
-
 <script>
-// ── メディアタイプ別の動詞 ──
 const TYPE_VERBS = {
-  book:  { finish: '読み終わって', during: '読んでいて',  after: '読んで' },
-  movie: { finish: '観終わって',   during: '観ていて',    after: '観て' },
-  news:  { finish: '読み終わって', during: '読んでいて',  after: '読んで' },
-  other: { finish: '体験し終わって', during: '体験していて', after: '体験して' },
+  book:  { finish:'読み終わって', during:'読んでいて',     after:'読んで' },
+  movie: { finish:'観終わって',   during:'観ていて',       after:'観て' },
+  news:  { finish:'読み終わって', during:'読んでいて',     after:'読んで' },
+  other: { finish:'体験し終わって', during:'体験していて', after:'体験して' },
 };
-function verb(key) {
-  const t = TYPE_VERBS[S.workType] || TYPE_VERBS.other;
-  return t[key] || t.after;
-}
+function verb(key) { const t = TYPE_VERBS[S.workType] || TYPE_VERBS.other; return t[key] || t.after; }
 
-// ── 質問ツリー（動詞を関数で差し込む） ──
-function buildTrees() {
-  return {
+function buildTrees() { return {
   kyokan: {
     q2: { q:'「共感した」って、どんな感じに近い？', choices:[
       {label:'ずっと感じてたのに言葉がなかったものに、名前をつけてもらった感じ', next:'kyokan_q3a'},
@@ -342,7 +352,6 @@ function buildTrees() {
       {label:'自分の中に、まだ語られていない物語があると気づいた', next:'__end__'},
     ]},
   },
-
   kando: {
     q2: { q:`${verb('finish')}どんな感動だった？`, choices:[
       {label:'涙が出た。でも悲しくはなかった', next:'kando_namida'},
@@ -419,7 +428,6 @@ function buildTrees() {
       {label:'ただ、よい時間だった。それだけでいい', next:'__end__'},
     ]},
   },
-
   omoshiroi: {
     q2: { q:`${verb('during')}どんな「面白さ」を感じた？`, choices:[
       {label:'展開が読めなくて止まらなかった', next:'omo_tenkai'},
@@ -491,7 +499,6 @@ function buildTrees() {
       {label:'誰かと一緒に楽しみたかった', next:'__end__'},
     ]},
   },
-
   kanashimi: {
     q2: { q:`${verb('after')}その切なさ・悲しさ、どこから来てる？`, choices:[
       {label:'何かが永遠に失われた感じ', next:'kana_ushinau'},
@@ -586,7 +593,6 @@ function buildTrees() {
       {label:'誰かのことを見直す・向き合うきっかけになった', next:'__end__'},
     ]},
   },
-
   moya: {
     q2: { q:`${verb('after')}もやもや・怖さ——その正体、どれに近い？`, choices:[
       {label:'納得できない・腑に落ちない結末', next:'moya_ketsu'},
@@ -664,7 +670,6 @@ function buildTrees() {
       {label:'誰かのことを見直す・向き合うきっかけになった', next:'__end__'},
     ]},
   },
-
   wakaranai: {
     q2: { q:`${verb('after')}「わからなかった」って、どんな感じ？`, choices:[
       {label:'難しくて内容がつかめなかった', next:'waka_muzukashii'},
@@ -730,19 +735,189 @@ function buildTrees() {
       {label:'まずこの感覚をどこかに書き留めたい', next:'__end__'},
     ]},
   },
-  };
-}
+
+  manabi: {
+    q2: { q:`${verb('after')}どんな「学び」があった？`, choices:[
+      {label:'知らなかった知識・事実を得た', next:'manabi_chishiki'},
+      {label:'物事の見方・考え方が変わった', next:'manabi_mikata'},
+      {label:'仕事やスキルに使えそうな気づきがあった', next:'manabi_skill'},
+      {label:'自分の思い込みや先入観が崩れた', next:'manabi_henkaku'},
+      {label:'漠然と感じていたことが言語化された', next:'manabi_gengo'},
+      {label:'すぐ実践したいことが見つかった', next:'manabi_jissen'},
+    ]},
+    manabi_chishiki: { q:'その知識、自分にとってどんな意味がある？', choices:[
+      {label:'これまでの自分の判断を見直せる', next:'manabi_jibun'},
+      {label:'誰かに話したい・共有したい', next:'manabi_share'},
+      {label:'もっと深く学びたくなった', next:'manabi_next'},
+      {label:'知らなかったことへの驚き・衝撃が大きい', next:'manabi_odoroki'},
+      {label:'知っているようで実はわかっていなかったことに気づいた', next:'manabi_jibun'},
+    ]},
+    manabi_mikata: { q:'見方が変わったのはどんな部分？', choices:[
+      {label:'当たり前だと思っていたことの裏側が見えた', next:'manabi_jibun'},
+      {label:'自分とは違う立場・視点を理解できた', next:'manabi_jibun'},
+      {label:'複雑な問題をシンプルに捉えられるようになった', next:'manabi_skill'},
+      {label:'今まで見えていなかったつながりに気づいた', next:'manabi_jibun'},
+      {label:'正解だと思っていたものが揺らいだ', next:'manabi_henkaku'},
+    ]},
+    manabi_skill: { q:'どんな場面で使えそう？', choices:[
+      {label:'日常の仕事・業務に直接活かせる', next:'manabi_jissen'},
+      {label:'コミュニケーションや人間関係に使えそう', next:'manabi_jissen'},
+      {label:'考え方・判断の基準として持っておきたい', next:'manabi_jibun'},
+      {label:'今すぐではないが、いつか役立ちそう', next:'manabi_next'},
+      {label:'具体的な場面はまだ見えていないが、大事だと感じた', next:'manabi_jibun'},
+    ]},
+    manabi_henkaku: { q:'その「崩れた思い込み」、どんなものだった？', choices:[
+      {label:'自分の業界・専門分野への固定観念', next:'manabi_jibun'},
+      {label:'人や社会に対するステレオタイプ', next:'manabi_jibun'},
+      {label:'「常識」だと信じていたこと', next:'manabi_odoroki'},
+      {label:'自分自身の能力や限界への思い込み', next:'manabi_jibun'},
+      {label:'うまく言えないが、何かがひっくり返った感じ', next:'manabi_jibun'},
+    ]},
+    manabi_gengo: { q:'言語化されたことで、どう変わった？', choices:[
+      {label:'モヤっとしていたことにやっと名前がついた', next:'manabi_jibun'},
+      {label:'人に説明できるようになった', next:'manabi_share'},
+      {label:'自分の行動や感情の理由がわかった', next:'manabi_jibun'},
+      {label:'これからの判断の軸になりそう', next:'manabi_jissen'},
+      {label:'言葉を得たことで、前に進めそうな気がした', next:'manabi_jissen'},
+    ]},
+    manabi_odoroki: { q:'その驚き、どこから来てる？', choices:[
+      {label:'世界はこんなに複雑だったのかという感覚', next:'manabi_jibun'},
+      {label:'自分の無知に気づかされた', next:'manabi_jibun'},
+      {label:'誰かに早く話したいほど興奮している', next:'manabi_share'},
+      {label:'怖さと興味が混じっている', next:'manabi_next'},
+      {label:'自分の常識が狭かったと感じた', next:'manabi_jibun'},
+    ]},
+    manabi_share: { q:'誰かと共有したい気持ち、どんな感じ？', choices:[
+      {label:'特定の人に読ませたい・教えたい', next:'manabi_jissen'},
+      {label:'チームや職場に広めたい', next:'manabi_jissen'},
+      {label:'SNSや感想として発信したい', next:'manabi_jissen'},
+      {label:'一緒に議論してみたい', next:'manabi_next'},
+      {label:'まず自分の中で消化してから', next:'manabi_jibun'},
+    ]},
+    manabi_jibun: { q:'この学びは、今の自分にどう響いた？', choices:[
+      {label:'今の自分に必要なタイミングで出会えた', next:'manabi_jissen'},
+      {label:'過去の失敗や経験と結びついた', next:'manabi_jissen'},
+      {label:'なりたい自分の方向性が見えた気がする', next:'manabi_jissen'},
+      {label:'知っていれば良かったと少し後悔した', next:'manabi_jissen'},
+      {label:'もっと早く知りたかったが、今だからこそ深く理解できた', next:'manabi_jissen'},
+    ]},
+    manabi_next: { q:'この学びをどう活かしたい？', choices:[
+      {label:'関連する本・情報をもっと調べたい', next:'__end__'},
+      {label:'まず小さく試してみる', next:'__end__'},
+      {label:'誰かに話して意見をもらいたい', next:'__end__'},
+      {label:'ノートや記録として残しておきたい', next:'__end__'},
+      {label:'まだ咀嚼中。少し時間が必要', next:'__end__'},
+    ]},
+    manabi_jissen: { q:'実践に向けて、今の気持ちは？', choices:[
+      {label:'すぐ動きたい気持ちがある', next:'__end__'},
+      {label:'何から始めるか考え中', next:'__end__'},
+      {label:'大事だとわかっているが、動けていない自分もいる', next:'__end__'},
+      {label:'まず自分の中に落とし込む時間が必要', next:'__end__'},
+      {label:'この学びを誰かと一緒に実践したい', next:'__end__'},
+    ]},
+  },
+
+  kangaeru: {
+    q2: { q:`${verb('after')}何が「考えさせられた」？`, choices:[
+      {label:'社会・世界の構造への疑問や気づき', next:'kang_shakai'},
+      {label:'自分自身の生き方・価値観への問い', next:'kang_jibun'},
+      {label:'仕事や組織のあり方への違和感', next:'kang_shigoto'},
+      {label:'人間関係・コミュニケーションについて', next:'kang_ningen'},
+      {label:'正解のない問いを突きつけられた', next:'kang_toiwake'},
+      {label:'今まで避けてきたテーマに向き合わされた', next:'kang_jibun'},
+    ]},
+    kang_shakai: { q:'社会への問い、どんな形で残ってる？', choices:[
+      {label:'知らなかった現実に気づいてしまった', next:'kang_jibun'},
+      {label:'自分もその構造の中にいると感じた', next:'kang_jibun'},
+      {label:'何かを変えたいという気持ちが湧いた', next:'kang_kodo'},
+      {label:'変えられない現実への無力感もある', next:'kang_muryoku'},
+      {label:'まず自分の周りから変えることを考えた', next:'kang_kodo'},
+      {label:'誰かと議論して深めたい', next:'kang_share'},
+    ]},
+    kang_jibun: { q:'自分の生き方への問い、どんな感じ？', choices:[
+      {label:'今の自分の選択・判断を見直したくなった', next:'kang_minaoshi'},
+      {label:'大事にしていたはずのことを忘れていた', next:'kang_wasureta'},
+      {label:'なぜこう生きているのかを問われた', next:'kang_minaoshi'},
+      {label:'自分の「当たり前」が崩れた感覚', next:'kang_minaoshi'},
+      {label:'まだうまく言葉にならないが、何かが揺れた', next:'kang_kotoba'},
+    ]},
+    kang_shigoto: { q:'仕事・組織への違和感、どこから来てる？', choices:[
+      {label:'理想と現実のギャップを突かれた', next:'kang_jibun'},
+      {label:'自分がいる組織・業界への疑問が深まった', next:'kang_shakai'},
+      {label:'もっとこうあるべきという思いが強くなった', next:'kang_kodo'},
+      {label:'このまま続けることへの迷いが生まれた', next:'kang_jibun'},
+      {label:'変えようとしても難しい構造に気づいた', next:'kang_muryoku'},
+    ]},
+    kang_ningen: { q:'人間関係・コミュニケーション、どんな気づきが？', choices:[
+      {label:'自分の接し方を振り返るきっかけになった', next:'kang_minaoshi'},
+      {label:'特定の誰かとの関係を考えさせられた', next:'kang_jibun'},
+      {label:'人間ってこういうものだと腑に落ちた', next:'kang_kotoba'},
+      {label:'わかり合うことの難しさを感じた', next:'kang_muryoku'},
+      {label:'もっとうまくやれると思った', next:'kang_kodo'},
+    ]},
+    kang_toiwake: { q:'その「正解のない問い」、自分の中でどうなってる？', choices:[
+      {label:'答えは出ないが、考え続けることが大事だと思う', next:'kang_kotoba'},
+      {label:'自分なりの答えが少し見えてきた', next:'kang_kotoba'},
+      {label:'誰かと一緒に考えたい', next:'kang_share'},
+      {label:'正解を求めすぎていた自分に気づいた', next:'kang_jibun'},
+      {label:'宙ぶらりんのまま持ち続けるしかない', next:'kang_muryoku'},
+    ]},
+    kang_minaoshi: { q:'見直したいこと、具体的にあった？', choices:[
+      {label:'日々の習慣・行動パターン', next:'kang_kodo'},
+      {label:'何かへの優先順位・比重', next:'kang_kodo'},
+      {label:'誰かへの接し方・言葉のかけ方', next:'kang_kodo'},
+      {label:'漠然とした方向性・生き方の軸', next:'kang_kotoba'},
+      {label:'まだ具体的には見えていないが、何かを変えたい', next:'kang_kodo'},
+    ]},
+    kang_wasureta: { q:'忘れていたこと、取り戻せそう？', choices:[
+      {label:'思い出せてよかった。また大事にしたい', next:'kang_kodo'},
+      {label:'わかっていたのに流れに負けていた', next:'kang_muryoku'},
+      {label:'昔の自分の方が大切にできていた', next:'kang_jibun'},
+      {label:'忘れていたのではなく、見ないようにしていた', next:'kang_jibun'},
+      {label:'取り戻すより、新しい形で持ち直す感じ', next:'kang_kodo'},
+    ]},
+    kang_muryoku: { q:'その無力感・難しさ、どう向き合う？', choices:[
+      {label:'できることから少しずつやるしかない', next:'kang_kodo'},
+      {label:'まず自分を変えることが先だと思う', next:'kang_kodo'},
+      {label:'今は動けなくても、考え続けることはできる', next:'kang_kotoba'},
+      {label:'誰かと一緒に考えることで変わるかもしれない', next:'kang_share'},
+      {label:'正直、まだ答えが出ない', next:'kang_kotoba'},
+    ]},
+    kang_kotoba: { q:'この「問い」、言葉にするとしたら？', choices:[
+      {label:'自分はどう生きたいか', next:'__end__'},
+      {label:'何を大切にするか', next:'__end__'},
+      {label:'社会・世界に対して何ができるか', next:'__end__'},
+      {label:'どんな人でありたいか', next:'__end__'},
+      {label:'まだ言葉にならない。でも確かにある', next:'__end__'},
+    ]},
+    kang_share: { q:'誰かと共有・議論したい気持ち、どんな感じ？', choices:[
+      {label:'特定の人と話したい', next:'kang_kodo'},
+      {label:'チームや職場で考えたいテーマだ', next:'kang_kodo'},
+      {label:'SNSや発信で問いを投げかけたい', next:'kang_kodo'},
+      {label:'まず自分の中で整理してから', next:'kang_kotoba'},
+      {label:'読んだ人みんなの感想が聞きたい', next:'__end__'},
+    ]},
+    kang_kodo: { q:'この「考え」を行動に移すとしたら？', choices:[
+      {label:'まず小さな一歩を踏み出す', next:'__end__'},
+      {label:'誰かに話して背中を押してもらいたい', next:'__end__'},
+      {label:'もう少し考えてから動く', next:'__end__'},
+      {label:'関連する情報をもっと集めてから', next:'__end__'},
+      {label:'行動より、まず自分の内面を整える', next:'__end__'},
+    ]},
+  },
+}; }
 
 const TASTES = {
-  casual:       { name:'雑談・カジュアル',  instruction:'友人との読書会・雑談で話すような口語文。「〜だった」「〜って感じで」など自然な話し言葉。感情をそのまま素直に。200〜250字程度。' },
-  presentation: { name:'プレゼン・論理的',  instruction:'職場や授業の発表向け。「第一に〜、第二に〜」「この作品から読み取れるのは〜」など論理的な構成。結論を明確に。400〜500字。' },
-  sns:          { name:'SNS・キャッチー',   instruction:'X（旧Twitter）やInstagramのキャプション向け。冒頭一文で掴む。改行多め。ハッシュタグ2〜3個付き。150字以内のメイン文。' },
-  essay:        { name:'エッセイ・文学的',  instruction:'読書感想文や寄稿向け。情景描写や内省を丁寧な文語体で。比喩や余白を大切に。500〜600字。' },
+  casual:       { name:'雑談・カジュアル',  instruction:'友人との読書会や飲み会で話すような、自然な口語文で書いてください。「〜だった」「〜って感じで」「なんか」など話し言葉を使って、感情をそのまま素直に出してください。200〜250字程度。' },
+  presentation: { name:'プレゼン・論理的',  instruction:'職場や授業での発表向けに、論理的な構成で書いてください。「第一に〜」「この作品から読み取れるのは〜」など整理された文体で、結論を明確に。400〜500字。' },
+  sns:          { name:'SNS・キャッチー',   instruction:'X（旧Twitter）やInstagramのキャプション向けに書いてください。冒頭の一文で読む人を引き込み、改行を多めにして、最後にハッシュタグを2〜3個つけてください。メイン文は150字以内で。' },
+  essay:        { name:'エッセイ・文学的',  instruction:'読書感想文や寄稿向けのエッセイとして書いてください。ただし文語体や古風な表現は避け、現代のエッセイストが書くような、読みやすくて温かみのある文体にしてください。情景や心情を丁寧に描写しながら、余白を大切に。500〜600字。' },
 };
 
 const FI_LABELS = {
   kyokan:'共感した', kando:'感動した', omoshiroi:'面白かった',
-  kanashimi:'切なかった・悲しかった', moya:'もやっとした・怖かった', wakaranai:'よくわからなかった'
+  kanashimi:'切なかった・悲しかった', moya:'もやっとした・怖かった', wakaranai:'よくわからなかった',
+  manabi:'学びになった', kangaeru:'考えさせられた'
 };
 
 const S = {
@@ -751,6 +926,7 @@ const S = {
   currentTree:null, currentNodeKey:'',
   history:[], selectedChoices:[],
   maxDepth:12, selectedTaste:'',
+  uploadedFileBase64:'', uploadedFileName:'', uploadedFileType:'',
 };
 
 function showPage(name) {
@@ -760,8 +936,7 @@ function showPage(name) {
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function showToast(msg) {
   const t = document.getElementById('copy-toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
@@ -769,17 +944,26 @@ function buildPrompt() {
   if (!S.selectedTaste || !S.history.length) return '';
   const taste = TASTES[S.selectedTaste];
   const hist = S.history.map((h,i) => `${i+1}. ${h.q} → ${h.answer}`).join('\n');
-  const work = S.workTitle ? `「${S.workTitle}」` : 'この作品';
+  const work = S.workTitle ? `「${S.workTitle}」` : 'この作品・資料';
   const comment = S.firstComment ? `（補足：${S.firstComment}）` : '';
-  return `${work}についての感想を深掘りしました。以下の思考の流れをもとに、【${taste.name}】テイストで感想原稿を作ってください。
-
-テイストの指示：${taste.instruction}
-
-ファーストインプレッション：「${FI_LABELS[S.firstImpression]}」${comment}
-
-深掘りの記録：
-${hist}`;
+  const fileNote = S.uploadedFileName ? `\n※ この感想はアップロードされた資料「${S.uploadedFileName}」をもとにしています。資料の内容も原稿に反映してください。` : '';
+  return `${work}についての感想を深掘りしました。以下の思考の流れをもとに、【${taste.name}】テイストで感想原稿を作ってください。\n\nテイストの指示：${taste.instruction}${fileNote}\n\nファーストインプレッション：「${FI_LABELS[S.firstImpression]}」${comment}\n\n深掘りの記録：\n${hist}`;
 }
+
+// ── ファイルアップロード ──
+document.getElementById('file-input').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  S.uploadedFileName = file.name;
+  S.uploadedFileType = file.type;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    S.uploadedFileBase64 = ev.target.result;
+    document.getElementById('upload-area').classList.add('has-file');
+    document.getElementById('upload-filename').textContent = '📄 ' + file.name;
+  };
+  reader.readAsDataURL(file);
+});
 
 // ── START ──
 document.getElementById('type-group').addEventListener('click', e => {
@@ -787,7 +971,6 @@ document.getElementById('type-group').addEventListener('click', e => {
   if (!btn) return;
   S.workType = btn.dataset.type;
   document.querySelectorAll('.tag-btn').forEach(b => b.classList.toggle('selected', b.dataset.type === S.workType));
-  // step2の動詞を更新
   const vMap = { book:'読んで', movie:'観て', news:'読んで', other:'体験して' };
   document.getElementById('fi-verb').textContent = vMap[S.workType] || '読んで';
 });
@@ -923,10 +1106,13 @@ document.getElementById('btn-copy-prompt').addEventListener('click', async () =>
 });
 
 document.getElementById('btn-reset').addEventListener('click', () => {
-  Object.assign(S,{workType:'',workTitle:'',firstImpression:'',firstComment:'',currentTree:null,currentNodeKey:'',history:[],selectedChoices:[],selectedTaste:''});
+  Object.assign(S,{workType:'',workTitle:'',firstImpression:'',firstComment:'',currentTree:null,currentNodeKey:'',history:[],selectedChoices:[],selectedTaste:'',uploadedFileBase64:'',uploadedFileName:'',uploadedFileType:''});
   document.getElementById('workTitle').value='';
   document.getElementById('impression').value='';
   document.getElementById('fi-verb').textContent='読んで';
+  document.getElementById('file-input').value='';
+  document.getElementById('upload-area').classList.remove('has-file');
+  document.getElementById('upload-filename').textContent='';
   document.querySelectorAll('.tag-btn,.fi-btn,.taste-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('start-err').innerHTML='';
   showPage('start');
