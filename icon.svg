@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dbb0f5"/>
+      <stop offset="35%" stop-color="#a8d8f8"/>
+      <stop offset="65%" stop-color="#fdc8a8"/>
+      <stop offset="100%" stop-color="#a8e8c8"/>
+    </linearGradient>
+    <linearGradient id="bg2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0a8d8" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#a8d0f5" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#f5e0a8" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#bg2)"/>
+
+  <!-- 吹き出し楕円（中央） -->
+  <ellipse cx="512" cy="470" rx="340" ry="210" fill="white" opacity="0.94"/>
+  <ellipse cx="512" cy="470" rx="340" ry="210" fill="none" stroke="white" stroke-width="12"/>
+
+  <!-- しっぽ（下向き・左寄り） -->
+  <polygon points="420,672 490,644 432,760" fill="white" opacity="0.94"/>
+  <polygon points="420,672 490,644 432,760" fill="none" stroke="white" stroke-width="10" stroke-linejoin="round"/>
+
+  <!-- 吹き出し内の線（言葉のイメージ） -->
+  <rect x="310" y="390" width="200" height="30" rx="15" fill="#cc9ee8" opacity="0.6"/>
+  <rect x="310" y="445" width="370" height="30" rx="15" fill="#88baf0" opacity="0.6"/>
+  <rect x="310" y="500" width="160" height="30" rx="15" fill="#f0b888" opacity="0.6"/>
+</svg>
